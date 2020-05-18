@@ -70,4 +70,16 @@ public class Config {
             return null;
         return Bootstrap.getJda().getVoiceChannelById(id);
     }
+
+    public void setValue(ConfigValue key, String value) {
+        readFile();
+        config.setProperty(key.toString(), value);
+        updateFile();
+    }
+
+    public void setVoiceChannelToUse(Guild guild, String id) {
+        readFile();
+        config.setProperty(guild.getId(), id);
+        updateFile();
+    }
 }

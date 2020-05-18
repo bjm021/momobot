@@ -22,6 +22,7 @@ import de.bjm.momobot.MessageDispatcher;
 import de.bjm.momobot.controller.BotCommandHandler;
 import de.bjm.momobot.controller.BotController;
 import de.bjm.momobot.controller.BotControllerFactory;
+import de.bjm.momobot.utils.MessageBuilder;
 import de.bjm.momobot.utils.Hentai;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -332,6 +333,19 @@ public class MusicController implements BotController {
   }
 
   @BotCommandHandler
+  private void setvc(Message message, String id) {
+    try {
+    VoiceChannel vc = message.getGuild().getVoiceChannelById(id);
+    Bootstrap.getConfig().setVoiceChannelToUse(message.getGuild(), vc.getId());
+    message.getChannel().sendMessage(MessageBuilder.buildSuccess("Active Bot Channel for Guild " + message.getGuild().getName() + " now set to " + vc.getName() + "#" + vc.getId())).queue();
+    } catch (NumberFormatException e) {
+      message.getChannel().sendMessage(MessageBuilder.buildError("Please enter a valid channel id! (NUMERIC)", e)).queue();
+    } catch (Exception e) {
+      message.getChannel().sendMessage(MessageBuilder.buildError("Something went wrong! (check your id)", e)).queue();
+    }
+  }
+
+  @BotCommandHandler
   private void help(Message message) {
     EmbedBuilder eb = new EmbedBuilder();
     eb.setTitle("HELP");
@@ -356,8 +370,8 @@ public class MusicController implements BotController {
     eb.addField("-real [tags]", "Pulls Real images from Realbooru", true);
     eb.addField("-safe [tags]", "Pulls SFW images from Safebooru", true);
 
-    eb.setAuthor("b.jm021", "https://bjm021.cf", "http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
-    eb.setFooter("MomoBot " + PlayerLibrary.VERSION + " based on lavaplayer", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png?size=128");
+    eb.setAuthor("MomoBot" + PlayerLibrary.VERSION, "https://momobot.cf", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png");
+    eb.setFooter("MomoBot " + PlayerLibrary.VERSION + " based on lavaplayer | by b.jm021", "http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
     eb.setThumbnail("http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
 
     message.getChannel().sendMessage(eb.build()).queue();
