@@ -25,7 +25,7 @@ public class Bootstrap {
         config = new Config();
 
         jda = new JDABuilder()
-                .setToken("Njg3NjA3NjIzNjUwMjQ2Njc3.XsEupA.eBTL0BErPWdaWl2p0DvKTkIlJiM")
+                .setToken("")
                 .addEventListeners(new BotApplicationManager())
                 .setActivity(Activity.playing("-help | momobot.cf"))
                 .build();
