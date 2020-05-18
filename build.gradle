@@ -25,6 +25,18 @@ dependencies {
 
   // https://mvnrepository.com/artifact/org.jdom/jdom2
   compile group: 'org.jdom', name: 'jdom2', version: '2.0.5'
+
+  // https://mvnrepository.com/artifact/com.cedarsoftware/json-io
+  compile group: 'com.cedarsoftware', name: 'json-io', version: '4.12.0'
+
+  // https://mvnrepository.com/artifact/commons-io/commons-io
+  compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
+  // https://mvnrepository.com/artifact/org.json/json
+  compile group: 'org.json', name: 'json', version: '20190722'
+
+
+
 }
 
 mainClassName = 'com.sedmelluq.discord.lavaplayer.demo.Bootstrap'

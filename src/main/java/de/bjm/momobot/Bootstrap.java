@@ -1,6 +1,7 @@
 package de.bjm.momobot;
 
 import de.bjm.momobot.file.Config;
+import de.bjm.momobot.file.QueueFile;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -15,14 +16,21 @@ public class Bootstrap {
 
     private static Config config;
 
+    private static QueueFile queueFile;
+
     public static Config getConfig() {
         return config;
+    }
+
+    public static QueueFile getQueueFile() {
+        return queueFile;
     }
 
     public static void main(String[] args) throws Exception {
 
         System.out.println("Starting BOT!");
         config = new Config();
+        queueFile = new QueueFile();
 
         String token = config.getValue(Config.ConfigValue.TOKEN);
         if ("none".equalsIgnoreCase(token)) {
