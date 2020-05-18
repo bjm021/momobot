@@ -10,7 +10,7 @@ import java.util.Properties;
 public class Config {
 
     public enum ConfigValue {
-        DEBUG
+        DEBUG, TOKEN
     }
 
     File configFile = new File("." + File.separator + "config.properties");
@@ -25,6 +25,7 @@ public class Config {
             try {
                 // load standard values
                 config.setProperty("DEBUG", "true");
+                config.setProperty("TOKEN", "none");
 
                 configFile.getParentFile().mkdirs();
                 configFile.createNewFile();
