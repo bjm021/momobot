@@ -66,6 +66,8 @@ public class Config {
         readFile();
         System.out.println("[DEBUG] getting channel of: " + guild.getId());
         String id = config.getProperty(guild.getId());
+        if (id == null)
+            return null;
         return Bootstrap.getJda().getVoiceChannelById(id);
     }
 }
