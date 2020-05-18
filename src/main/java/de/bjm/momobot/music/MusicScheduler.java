@@ -24,6 +24,10 @@ public class MusicScheduler extends AudioEventAdapter implements Runnable {
   private final AtomicReference<Message> boxMessage;
   private final AtomicBoolean creatingBoxMessage;
 
+  public BlockingDeque<AudioTrack> getQueue() {
+    return queue;
+  }
+
   public MusicScheduler(AudioPlayer player, MessageDispatcher messageDispatcher, ScheduledExecutorService executorService) {
     this.player = player;
     this.messageDispatcher = messageDispatcher;

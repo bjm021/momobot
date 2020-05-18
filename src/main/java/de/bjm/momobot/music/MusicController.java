@@ -356,6 +356,56 @@ public class MusicController implements BotController {
     }
 
     @BotCommandHandler
+    private void listqueues(Message message) {
+        List<String> queues = Bootstrap.getQueueFile().listQueues();
+        if (queues != null) {
+            EmbedBuilder eb = new EmbedBuilder();
+            eb.setDescription("List of all Queues saved in save-file");
+            queues.forEach(s -> {
+                eb.addField("", s, true);
+            });
+            message.getChannel().sendMessage(eb.build()).queue();
+        } else {
+            message.getChannel().sendMessage(MessageBuilder.buildError("Queues save-File may be empty", null)).queue();
+        }
+    }
+
+    @BotCommandHandler
+    private void savequeue(Message message, String name) {
+        message.getChannel().sendMessage("Trying to save queue to file").queue();
+
+        int result = Bootstrap.getQueueFile().addQueueToFile(name, scheduler.getQueue());
+        switch (result) {
+            case 0:
+                message.getChannel().sendMessage(MessageBuilder.buildSuccess("Successfully saved queue to file")).queue();
+                break;
+            case 1:
+                message.getChannel().sendMessage(MessageBuilder.buildError("Queue by this name already exists in save file", null)).queue();
+                break;
+            case -1:
+                message.getChannel().sendMessage(MessageBuilder.buildError("Something went wrong!", Bootstrap.getQueueFile().getLatestException())).queue();
+                break;
+        }
+    }
+
+    @BotCommandHandler
+    private void loadqueue(Message message, String name) {
+        List<String> items = Bootstrap.getQueueFile().getQueueItems(name);
+
+        if (items == null) {
+            message.getChannel().sendMessage(MessageBuilder.buildError("Either a saved queue ba that name does not exist or it has no entries", null)).queue();
+            return;
+        }
+
+        scheduler.clearQueue();
+
+        for (String item : items) {
+            addTrack(message, item, false);
+        }
+        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Loaded queue successfully")).queue();
+    }
+
+    @BotCommandHandler
     private void help(Message message) {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("HELP");
@@ -381,6 +431,11 @@ public class MusicController implements BotController {
         eb.addField("-safe [tags]", "Pulls SFW images from Safebooru", true);
         eb.addField("", "Bot Settings Commands", false);
         eb.addField("-setvc <channel_id>", "Sets the VoiceChannel the bot uses", true);
+        eb.addField("-setdebug <true/false>", "Sets the DEBUG mode of the bot", true);
+        eb.addField("", "Queue Management", false);
+        eb.addField("-savequeue <name>", "Saves the last 8 queue items in a file", true);
+        eb.addField("-listqueues", "List saved queues", true);
+        eb.addField("-loadqueue <name>", "Loads all track of a saved queue by name", true);
 
         eb.setAuthor("MomoBot" + PlayerLibrary.VERSION, "https://momobot.cf", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png");
         eb.setFooter("MomoBot " + PlayerLibrary.VERSION + " based on lavaplayer | by b.jm021", "http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
