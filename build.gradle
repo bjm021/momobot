@@ -1,0 +1,30 @@
+plugins {
+  id 'java'
+  id 'application'
+}
+
+repositories {
+  mavenCentral()
+  jcenter()
+  mavenLocal()
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+
+  implementation 'com.sedmelluq:lavaplayer:1.3.48'
+
+  compile 'com.sedmelluq:jda-nas:1.0.5'
+  compile 'net.dv8tion:JDA:4.0.0_68'
+  runtime 'ch.qos.logback:logback-classic:1.1.8'
+
+  // https://mvnrepository.com/artifact/org.jdom/jdom2
+  compile group: 'org.jdom', name: 'jdom2', version: '2.0.5'
+}
+
+mainClassName = 'com.sedmelluq.discord.lavaplayer.demo.Bootstrap'
