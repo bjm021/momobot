@@ -1,6 +1,8 @@
 # momobot
 Momobot is a simple Discord Music bot including a live EQ
 
+![enter image description here](http://cdn.bjm.hesteig.com/momobanner.png)
+
 ## Inspiration
 This project was born because some friends wanted a simple Discord music bot with a bass boost function (EQ). The goal is / was to create a music bot with not too much effort. So the most logical thing to do was to use a simple powerful (already existing) music bot library. This project is based on [lavaplayer](https://github.com/sedmelluq/lavaplayer)
 
