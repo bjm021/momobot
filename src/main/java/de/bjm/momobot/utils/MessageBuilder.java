@@ -13,6 +13,7 @@ public class MessageBuilder {
     private static EmbedBuilder eb;
 
     public static MessageEmbed buildError(String err, Exception e) {
+        e.printStackTrace();
         eb = new EmbedBuilder();
         if (Bootstrap.getConfig().getValue(Config.ConfigValue.DEBUG).equalsIgnoreCase("true")) {
             eb.setTitle("Deug Message: " + err);
@@ -20,7 +21,11 @@ public class MessageBuilder {
         eb.setDescription(err);
         eb.setColor(Color.RED);
         if (Bootstrap.getConfig().getValue(Config.ConfigValue.DEBUG).equalsIgnoreCase("true")) {
-            eb.setDescription(Arrays.toString(e.getStackTrace()).substring(0, 2043) + " ...");
+            if (Arrays.toString(e.getStackTrace()).length() >= 2040) {
+                eb.setDescription(Arrays.toString(e.getStackTrace()).substring(0, 2040) + " ...");
+            } else {
+                eb.setDescription(Arrays.toString(e.getStackTrace()) + " ...");
+            }
         }
         return eb.build();
     }
