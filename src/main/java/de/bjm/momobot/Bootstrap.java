@@ -24,6 +24,12 @@ public class Bootstrap {
         System.out.println("Starting BOT!");
         config = new Config();
 
+        String token = config.getValue(Config.ConfigValue.TOKEN);
+        if ("none".equalsIgnoreCase(token)) {
+            System.err.println("Please update your config.properties file with a bot token!");
+            System.exit(1);
+        }
+
         jda = new JDABuilder()
                 .setToken("")
                 .addEventListeners(new BotApplicationManager())
