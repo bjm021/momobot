@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.entities.Activity;
 
 public class Bootstrap {
 
-    public static final String VERSION = "v1.3";
+    public static final String VERSION = "v1.4b";
 
     private static JDA jda;
 

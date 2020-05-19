@@ -454,7 +454,10 @@ public class MusicController implements BotController {
     @BotCommandHandler
         private void repeattrack(Message message) {
 
-
+        if (player.getPlayingTrack() == null) {
+            message.getChannel().sendMessage(MessageBuilder.buildError("There is currently no track playing", null)).queue();
+            return;
+        }
 
         manager.loadItemOrdered(this, player.getPlayingTrack().getInfo().uri, new AudioLoadResultHandler() {
             @Override
@@ -512,6 +515,15 @@ public class MusicController implements BotController {
     }
     */
 
+    @BotCommandHandler
+    private void geturi(Message message) {
+        if (player.getPlayingTrack() == null) {
+            message.getChannel().sendMessage(MessageBuilder.buildError("There is currently no track playing", null)).queue();
+            return;
+        }
+
+        message.getChannel().sendMessage(player.getPlayingTrack().getInfo().uri).queue();
+    }
 
     @BotCommandHandler
     private void help(Message message) {
