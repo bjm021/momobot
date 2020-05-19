@@ -3,6 +3,7 @@ package de.bjm.momobot.file;
 import com.cedarsoftware.util.io.JsonWriter;
 import de.bjm.momobot.Bootstrap;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -10,6 +11,8 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class Config {
@@ -43,6 +46,17 @@ public class Config {
                 root.put("debug", true);
                 JSONArray voiceChannels = new JSONArray();
                 root.put("voice-channels", voiceChannels);
+                JSONArray admins = new JSONArray();
+                root.put("admins", admins);
+                JSONArray restrictedCommands = new JSONArray();
+                restrictedCommands.put("addadmin");
+                restrictedCommands.put("removeadmin");
+                restrictedCommands.put("listadmins");
+                restrictedCommands.put("setvc");
+                restrictedCommands.put("setdebug");
+                root.put("restricted-commands", restrictedCommands);
+
+                System.out.println("Writing config file...");
 
                 writeJSONFile(root);
             } catch (IOException e) {
@@ -72,6 +86,75 @@ public class Config {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * Adds a user to the admin list
+     * @param user          The user to add
+     * @return              true = Added user
+     *                      false = user already admin
+     * @throws IOException  if it files reading the config file
+     */
+    public boolean addAdmin(User user) throws IOException {
+        JSONObject root = readJSONFile();
+        JSONArray admins = root.getJSONArray("admins");
+        if (!admins.toList().contains(user.getId())) {
+            admins.put(user.getId());
+            root.put("admins", admins);
+            writeJSONFile(root);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Adds a user to the admin list
+     * @param user          The user to add
+     * @return              true = if the user is removed
+     *                      false = if the user is no admin
+     * @throws IOException  if it files reading the config file
+     */
+    public boolean removeAdmin(User user) throws IOException {
+        JSONObject root = readJSONFile();
+        JSONArray admins = root.getJSONArray("admins");
+        if (admins.toList().contains(user.getId())) {
+            admins.remove(admins.toList().indexOf(user.getId()));
+            root.put("admins", admins);
+            writeJSONFile(root);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Adds a user to the admin list
+     * @param user          The user to add
+     * @return              true = is admin
+     *                      false = is no admin
+     * @throws IOException  if it files reading the config file
+     */
+    public boolean isAdmin(User user) throws IOException {
+
+        JSONObject root = readJSONFile();
+        JSONArray admins = root.getJSONArray("admins");
+        return admins.toList().contains(user.getId());
+
+    }
+
+    public List<User> getAdminList() throws IOException {
+        JSONObject root = readJSONFile();
+        JSONArray admins = root.getJSONArray("admins");
+
+        List<User> output = new ArrayList<>();
+
+        for (Object admin : admins) {
+            User tmp = Bootstrap.getJda().getUserById((String) admin);
+            output.add(tmp);
+        }
+
+        return output;
     }
 
 
@@ -111,7 +194,7 @@ public class Config {
             JSONObject root = readJSONFile();
             JSONArray channels = root.getJSONArray("voice-channels");
             for (Object channel : channels) {
-                JSONObject tmpJSON = (JSONObject) channel;
+               JSONObject tmpJSON = (JSONObject) channel;
                 if (tmpJSON.getString("guild").equalsIgnoreCase(guild.getId())) {
                     return guild.getJDA().getVoiceChannelById(tmpJSON.getString("use-channel"));
                 }
@@ -124,6 +207,17 @@ public class Config {
         }
 
         return null;
+    }
+
+    public boolean isCommandRestricted(String cmd){
+        try {
+            JSONObject root = readJSONFile();
+            JSONArray rest = root.getJSONArray("restricted-commands");
+            return rest.toList().contains(cmd);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 

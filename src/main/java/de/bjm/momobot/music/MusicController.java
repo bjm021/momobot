@@ -26,10 +26,7 @@ import de.bjm.momobot.file.Config;
 import de.bjm.momobot.utils.MessageBuilder;
 import de.bjm.momobot.utils.Hentai;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.managers.AudioManager;
 import net.iharder.Base64;
 
@@ -394,6 +391,64 @@ public class MusicController implements BotController {
     }
 
     @BotCommandHandler
+    private void addadmin(Message message, String id) {
+        User user = message.getJDA().getUserById(id);
+        if (user != null) {
+            try {
+                boolean result = Bootstrap.getConfig().addAdmin(user);
+                if (result) {
+                    message.getChannel().sendMessage(MessageBuilder.buildSuccess("Successfully promoted " + user.getName() + " to admin")).queue();
+                } else {
+                    message.getChannel().sendMessage(MessageBuilder.buildError( user.getName() + " is already a admin!", null)).queue();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                MessageBuilder.ioError(e, message.getChannel());
+            }
+        } else {
+            message.getChannel().sendMessage(MessageBuilder.buildError("There is no user by that id", null)).queue();
+        }
+    }
+
+    @BotCommandHandler
+    private void removeadmin(Message message, String id) {
+        User user = message.getJDA().getUserById(id);
+        if (user != null) {
+            try {
+                boolean result = Bootstrap.getConfig().removeAdmin(user);
+                if (result) {
+                    message.getChannel().sendMessage(MessageBuilder.buildSuccess("Successfully demoted " + user.getName())).queue();
+                } else {
+                    message.getChannel().sendMessage(MessageBuilder.buildError( user.getName() + " is not even a admin!", null)).queue();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                MessageBuilder.ioError(e, message.getChannel());
+            }
+        } else {
+            message.getChannel().sendMessage(MessageBuilder.buildError("There is no user by that id", null)).queue();
+        }
+    }
+
+    @BotCommandHandler
+    private void listadmins(Message message) {
+        EmbedBuilder eb = new EmbedBuilder();
+        eb.setTitle("Admin List");
+        eb.setDescription("All listed users have admin permissions!");
+        eb.setAuthor("MomoBot " + Bootstrap.VERSION, "https://momobot.cf", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png");
+        try {
+            Bootstrap.getConfig().getAdminList().forEach(user -> {
+                eb.addField(user.getId(), user.getName(), false);
+            });
+            message.getChannel().sendMessage(eb.build()).queue();
+        } catch (IOException e) {
+            e.printStackTrace();
+            MessageBuilder.ioError(e, message.getChannel());
+        }
+
+    }
+
+    @BotCommandHandler
     private void help(Message message) {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("HELP");
@@ -429,6 +484,20 @@ public class MusicController implements BotController {
         eb.setFooter("MomoBot " + Bootstrap.VERSION + " based on lavaplayer | by b.jm021", "http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
         eb.setThumbnail("http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
 
+        message.getChannel().sendMessage(eb.build()).queue();
+
+        eb = new EmbedBuilder();
+        eb.setTitle("Administrative commands");
+        eb.setColor(Color.BLUE);
+        eb.setDescription("You can use this to manage command permission to this bot");
+        eb.addField("", "Administrative commands", false);
+        eb.addField("-addadmin <id>", "Promote a user to admin", true);
+        eb.addField("-removeadmin <id>", "Demote a user from admin", true);
+        eb.addField("-listadmins", "List all admins", true);
+        eb.addField("Hint", "To restrict commands add their names (without the prefix) to the config.json file! After that only admins have permission to execute these commands!", false);
+        eb.setAuthor("MomoBot " + Bootstrap.VERSION, "https://momobot.cf", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png");
+        eb.setFooter("MomoBot " + Bootstrap.VERSION + " based on lavaplayer | by b.jm021", "http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
+        eb.setThumbnail("http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
         message.getChannel().sendMessage(eb.build()).queue();
     }
 

@@ -1,6 +1,7 @@
 package de.bjm.momobot.utils;
 
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.TextChannel;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -44,6 +45,10 @@ public class Hentai {
      * @param channel   The Discord {@link MessageChannel} in which to post the images
      */
     public static void hentai(sites site, List<String> tags, int limit, MessageChannel channel) {
+        if (!((TextChannel) channel).isNSFW()) {
+            channel.sendMessage(MessageBuilder.buildError("Only ever do this in a NSFW channel!", null)).queue();
+            return;
+        }
         channel.sendMessage(MessageBuilder.buildSuccess("Trying to send " + limit + " images with tags: " + String.join(", ", tags))).queue();
         CloseableHttpClient client= HttpClientBuilder.create().build();
         StringBuilder sb = new StringBuilder();
@@ -100,6 +105,8 @@ public class Hentai {
                     StringBuilder tmpBuilder = new StringBuilder();
                     tmpBuilder.append(sb.toString());
                     tmpBuilder.append("&pid=");
+                    if (pageCount > 2000)
+                        pageCount = 2000;
                     tmpBuilder.append(ThreadLocalRandom.current().nextInt(1, pageCount+1));
                     System.out.println(tmpBuilder.toString());
                     CloseableHttpClient tmpClient = HttpClientBuilder.create().build();
@@ -130,7 +137,9 @@ public class Hentai {
             }
 
             for (int i = 0; i < limit; i++) {
+
                 int random = ThreadLocalRandom.current().nextInt(0, postList.size());
+
                 System.out.print("random: " + random + " ");
                 Element el = postList.get(random);
                 String output = "";

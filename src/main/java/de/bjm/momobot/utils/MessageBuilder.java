@@ -3,6 +3,7 @@ package de.bjm.momobot.utils;
 import de.bjm.momobot.Bootstrap;
 import de.bjm.momobot.file.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.awt.*;
@@ -34,7 +35,11 @@ public class MessageBuilder {
         return eb.build();
     }
 
-    public static MessageEmbed buildMessagge(String msg, Color color) {
+    public static void ioError(Exception e, MessageChannel channel) {
+        channel.sendMessage(buildError("An IO error ocurred while reading a file", e)).queue();
+    }
+
+    public static MessageEmbed buildMessage(String msg, Color color) {
         eb = new EmbedBuilder();
         eb.setDescription(msg);
         eb.setColor(color);
@@ -42,11 +47,11 @@ public class MessageBuilder {
     }
 
     public static MessageEmbed buildTmp(String msg) {
-        return buildMessagge(msg, Color.ORANGE);
+        return buildMessage(msg, Color.ORANGE);
     }
 
     public static MessageEmbed buildSuccess(String msg) {
-        return buildMessagge(msg, Color.GREEN);
+        return buildMessage(msg, Color.GREEN);
     }
 
 }
