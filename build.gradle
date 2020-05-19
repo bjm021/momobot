@@ -39,4 +39,4 @@ dependencies {
 
 }
 
-mainClassName = 'com.sedmelluq.discord.lavaplayer.demo.Bootstrap'
+mainClassName = 'de.bjm.momobot.Bootstrap'
