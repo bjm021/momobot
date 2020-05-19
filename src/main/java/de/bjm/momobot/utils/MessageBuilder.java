@@ -18,7 +18,7 @@ public class MessageBuilder {
     public static MessageEmbed buildError(String err, Exception e) {
         eb = new EmbedBuilder();
         if (Bootstrap.getConfig().getValue(Config.ConfigValue.DEBUG).equalsIgnoreCase("true") && e != null) {
-            eb.setTitle("Deug Message: " + err);
+            eb.setTitle("Debug Message: " + err);
         }
         eb.setDescription(err);
         eb.setColor(Color.RED);
