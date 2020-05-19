@@ -8,6 +8,9 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import java.awt.*;
 import java.util.Arrays;
 
+/**
+ * Simple tool to build embed messages for the bot
+ */
 public class MessageBuilder {
 
     private static EmbedBuilder eb;
@@ -31,11 +34,19 @@ public class MessageBuilder {
         return eb.build();
     }
 
-    public static MessageEmbed buildSuccess(String msg) {
+    public static MessageEmbed buildMessagge(String msg, Color color) {
         eb = new EmbedBuilder();
         eb.setDescription(msg);
-        eb.setColor(Color.GREEN);
+        eb.setColor(color);
         return eb.build();
+    }
+
+    public static MessageEmbed buildTmp(String msg) {
+        return buildMessagge(msg, Color.ORANGE);
+    }
+
+    public static MessageEmbed buildSuccess(String msg) {
+        return buildMessagge(msg, Color.GREEN);
     }
 
 }

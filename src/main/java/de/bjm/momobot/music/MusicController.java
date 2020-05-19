@@ -255,7 +255,7 @@ public class MusicController implements BotController {
 
     @BotCommandHandler
     private void version(Message message) {
-        message.getChannel().sendMessage(PlayerLibrary.VERSION).queue();
+        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Running momobot " + Bootstrap.VERSION + " (using PlayerLibrary " + PlayerLibrary.VERSION + ")")).queue();
     }
 
     @BotCommandHandler
@@ -306,6 +306,11 @@ public class MusicController implements BotController {
         } else {
             message.getChannel().sendMessage("ONLY do this in NSFW channels!!!").queue();
         }
+    }
+
+    @BotCommandHandler
+    private void hentai(Message message, int amount, String tags) {
+        rule34(message, amount, tags);
     }
 
 
@@ -426,9 +431,9 @@ public class MusicController implements BotController {
         eb.addField("-bassboost", "BASSBOOST (EARRAPE!!!)", true);
         eb.addField("-eqlowbass <value>", "Modify the low band bass", true);
         eb.addField("", "NSFW Commands", false);
-        eb.addField("-rule34 / -hentai [tags]", "Pulls Hentai images from Rule34", true);
-        eb.addField("-real [tags]", "Pulls Real images from Realbooru", true);
-        eb.addField("-safe [tags]", "Pulls SFW images from Safebooru", true);
+        eb.addField("-rule34 / -hentai <amount> [tags]", "Pulls Hentai images from Rule34", true);
+        eb.addField("-real <amount> [tags]", "Pulls Real images from Realbooru", true);
+        eb.addField("-safe <amount> [tags]", "Pulls SFW images from Safebooru", true);
         eb.addField("", "Bot Settings Commands", false);
         eb.addField("-setvc <channel_id>", "Sets the VoiceChannel the bot uses", true);
         eb.addField("-setdebug <true/false>", "Sets the DEBUG mode of the bot", true);
@@ -437,8 +442,8 @@ public class MusicController implements BotController {
         eb.addField("-listqueues", "List saved queues", true);
         eb.addField("-loadqueue <name>", "Loads all track of a saved queue by name", true);
 
-        eb.setAuthor("MomoBot" + PlayerLibrary.VERSION, "https://momobot.cf", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png");
-        eb.setFooter("MomoBot " + PlayerLibrary.VERSION + " based on lavaplayer | by b.jm021", "http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
+        eb.setAuthor("MomoBot " + Bootstrap.VERSION, "https://momobot.cf", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png");
+        eb.setFooter("MomoBot " + Bootstrap.VERSION + " based on lavaplayer | by b.jm021", "http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
         eb.setThumbnail("http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
 
         message.getChannel().sendMessage(eb.build()).queue();

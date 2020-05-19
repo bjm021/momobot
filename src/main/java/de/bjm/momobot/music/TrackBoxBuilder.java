@@ -2,6 +2,9 @@ package de.bjm.momobot.music;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
+/**
+ * Builds the playing message
+ */
 public class TrackBoxBuilder {
   private static final String TOP_LEFT_CORNER = "\u2554";
   private static final String TOP_RIGHT_CORNER = "\u2557";
