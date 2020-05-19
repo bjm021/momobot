@@ -25,6 +25,7 @@ import java.util.concurrent.ThreadLocalRandom;
  *  It chooses a page id randomly and makes 6 different API requests
  *  Then it will divide the limit by 2 and takes limit/2 images from both sides
  */
+@SuppressWarnings("DuplicatedCode")
 public class Hentai {
 
 
@@ -73,7 +74,7 @@ public class Hentai {
             Document firstDoc = builder.build(response.getEntity().getContent());
             Element rootElement = firstDoc.getRootElement();
 
-            int postCount = Integer.valueOf(rootElement.getAttributeValue("count"));
+            int postCount = Integer.parseInt(rootElement.getAttributeValue("count"));
             int pageCount = postCount/100;
 
             List<Document> docList = new ArrayList<>();

@@ -35,7 +35,7 @@ public class Bootstrap {
         queueFile = new QueueFile();
 
         String token = config.getValue(Config.ConfigValue.TOKEN);
-        if ("none".equalsIgnoreCase(token)) {
+        if ("TOKEN-HERE".equalsIgnoreCase(token)) {
             System.err.println("Please update your config.properties file with a bot token!");
             System.exit(1);
         }

@@ -44,6 +44,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
+@SuppressWarnings("DuplicatedCode")
 public class MusicController implements BotController {
     private static final float[] BASS_BOOST = {0.2f, 0.15f, 0.1f, 0.05f, 0.0f, -0.05f, -0.1f, -0.1f, -0.1f, -0.1f, -0.1f,
             -0.1f, -0.1f, -0.1f, -0.1f};
@@ -194,16 +195,12 @@ public class MusicController implements BotController {
 
     @BotCommandHandler
     private void forward(Message message, int duration) {
-        forPlayingTrack(track -> {
-            track.setPosition(track.getPosition() + duration);
-        });
+        forPlayingTrack(track -> track.setPosition(track.getPosition() + duration));
     }
 
     @BotCommandHandler
     private void back(Message message, int duration) {
-        forPlayingTrack(track -> {
-            track.setPosition(Math.max(0, track.getPosition() - duration));
-        });
+        forPlayingTrack(track -> track.setPosition(Math.max(0, track.getPosition() - duration)));
     }
 
     @BotCommandHandler
@@ -218,39 +215,27 @@ public class MusicController implements BotController {
 
     @BotCommandHandler
     private void duration(Message message) {
-        forPlayingTrack(track -> {
-            message.getChannel().sendMessage("Duration is " + track.getDuration()).queue();
-        });
+        forPlayingTrack(track -> message.getChannel().sendMessage("Duration is " + track.getDuration()).queue());
     }
 
     @BotCommandHandler
     private void seek(Message message, long position) {
-        forPlayingTrack(track -> {
-            track.setPosition(position);
-        });
+        forPlayingTrack(track -> track.setPosition(position));
     }
 
     @BotCommandHandler
     private void pos(Message message) {
-        forPlayingTrack(track -> {
-            message.getChannel().sendMessage("Position is " + track.getPosition()).queue();
-        });
+        forPlayingTrack(track -> message.getChannel().sendMessage("Position is " + track.getPosition()).queue());
     }
 
     @BotCommandHandler
     private void marker(final Message message, long position, final String text) {
-        forPlayingTrack(track -> {
-            track.setMarker(new TrackMarker(position, state -> {
-                message.getChannel().sendMessage("Trigger [" + text + "] cause [" + state.name() + "]").queue();
-            }));
-        });
+        forPlayingTrack(track -> track.setMarker(new TrackMarker(position, state -> message.getChannel().sendMessage("Trigger [" + text + "] cause [" + state.name() + "]").queue())));
     }
 
     @BotCommandHandler
     private void unmark(Message message) {
-        forPlayingTrack(track -> {
-            track.setMarker(null);
-        });
+        forPlayingTrack(track -> track.setMarker(null));
     }
 
     @BotCommandHandler
@@ -357,7 +342,7 @@ public class MusicController implements BotController {
     private void setdebug(Message message, String bool) {
       boolean val = Boolean.parseBoolean(bool);
       Bootstrap.getConfig().setValue(Config.ConfigValue.DEBUG, Boolean.toString(val));
-      message.getChannel().sendMessage(MessageBuilder.buildSuccess("Successfully set DEBUG mode to " + Boolean.toString(val))).queue();
+      message.getChannel().sendMessage(MessageBuilder.buildSuccess("Successfully set DEBUG mode to " + val)).queue();
     }
 
     @BotCommandHandler
@@ -366,9 +351,7 @@ public class MusicController implements BotController {
         if (queues != null) {
             EmbedBuilder eb = new EmbedBuilder();
             eb.setDescription("List of all Queues saved in save-file");
-            queues.forEach(s -> {
-                eb.addField("", s, true);
-            });
+            queues.forEach(s -> eb.addField("", s, true));
             message.getChannel().sendMessage(eb.build()).queue();
         } else {
             message.getChannel().sendMessage(MessageBuilder.buildError("Queues save-File may be empty", null)).queue();
@@ -660,6 +643,8 @@ public class MusicController implements BotController {
             }
         }
     }
+
+
 
     private interface TrackOperation {
         void execute(AudioTrack track);
