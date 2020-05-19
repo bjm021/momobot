@@ -54,6 +54,9 @@ public class MusicController implements BotController {
     private final Guild guild;
     private final EqualizerFactory equalizer;
 
+    public static String latestURI;
+    public static boolean repeat = false;
+
     public MusicController(BotApplicationManager manager, BotGuildContext state, Guild guild) {
         this.manager = manager.getPlayerManager();
         this.guild = guild;
@@ -449,6 +452,68 @@ public class MusicController implements BotController {
     }
 
     @BotCommandHandler
+        private void repeattrack(Message message) {
+
+
+
+        manager.loadItemOrdered(this, player.getPlayingTrack().getInfo().uri, new AudioLoadResultHandler() {
+            @Override
+            public void trackLoaded(AudioTrack track) {
+                connectToFirstVoiceChannel(guild.getAudioManager());
+
+                message.getChannel().sendMessage("Added : " + track.getInfo().title + " (length " + track.getDuration() + ") to the top of the queue").queue();
+
+                scheduler.getQueue().addFirst(track);
+            }
+
+            @Override
+            public void playlistLoaded(AudioPlaylist playlist) {
+                List<AudioTrack> tracks = playlist.getTracks();
+                message.getChannel().sendMessage("Loaded playlist: " + playlist.getName() + " (" + tracks.size() + ")").queue();
+
+                connectToFirstVoiceChannel(guild.getAudioManager());
+
+                AudioTrack selected = playlist.getSelectedTrack();
+
+                if (selected != null) {
+                    message.getChannel().sendMessage("Selected track from playlist: " + selected.getInfo().title).queue();
+                } else {
+                    selected = tracks.get(0);
+                    message.getChannel().sendMessage("Added first track from playlist: " + selected.getInfo().title + " to the top of queue!").queue();
+                }
+
+                scheduler.getQueue().addFirst(selected);
+
+            }
+
+
+            @Override
+            public void noMatches() {
+                //message.getChannel().sendMessage("Nothing found for " + identifier).queue();
+            }
+
+            @Override
+            public void loadFailed(FriendlyException throwable) {
+                message.getChannel().sendMessage("Failed with message: " + throwable.getMessage() + " (" + throwable.getClass().getSimpleName() + ")").queue();
+            }
+        });
+
+    }
+
+    /*
+    @BotCommandHandler
+    private void repeat(Message message) {
+        if (!repeat) {
+            repeat = true;
+            message.getChannel().sendMessage(MessageBuilder.buildSuccess("Set repeat track to ON")).queue();
+        } else {
+            message.getChannel().sendMessage(MessageBuilder.buildSuccess("Set repeat track to OFF")).queue();
+        }
+    }
+    */
+
+
+    @BotCommandHandler
     private void help(Message message) {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("HELP");
@@ -475,30 +540,29 @@ public class MusicController implements BotController {
         eb.addField("", "Bot Settings Commands", false);
         eb.addField("-setvc <channel_id>", "Sets the VoiceChannel the bot uses", true);
         eb.addField("-setdebug <true/false>", "Sets the DEBUG mode of the bot", true);
+        eb.setAuthor("MomoBot " + Bootstrap.VERSION, "https://momobot.cf", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png");
+        eb.setThumbnail("http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
+        message.getChannel().sendMessage(eb.build()).queue();
+
+        eb = new EmbedBuilder();
+        eb.setColor(Color.BLUE);
         eb.addField("", "Queue Management", false);
         eb.addField("-savequeue <name>", "Saves the last 8 queue items in a file", true);
         eb.addField("-listqueues", "List saved queues", true);
         eb.addField("-loadqueue <name>", "Loads all track of a saved queue by name", true);
-
-        eb.setAuthor("MomoBot " + Bootstrap.VERSION, "https://momobot.cf", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png");
-        eb.setFooter("MomoBot " + Bootstrap.VERSION + " based on lavaplayer | by b.jm021", "http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
-        eb.setThumbnail("http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
-
-        message.getChannel().sendMessage(eb.build()).queue();
-
-        eb = new EmbedBuilder();
-        eb.setTitle("Administrative commands");
-        eb.setColor(Color.BLUE);
-        eb.setDescription("You can use this to manage command permission to this bot");
         eb.addField("", "Administrative commands", false);
         eb.addField("-addadmin <id>", "Promote a user to admin", true);
         eb.addField("-removeadmin <id>", "Demote a user from admin", true);
         eb.addField("-listadmins", "List all admins", true);
         eb.addField("Hint", "To restrict commands add their names (without the prefix) to the config.json file! After that only admins have permission to execute these commands!", false);
-        eb.setAuthor("MomoBot " + Bootstrap.VERSION, "https://momobot.cf", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png");
+        //eb.setAuthor("MomoBot " + Bootstrap.VERSION, "https://momobot.cf", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png");
         eb.setFooter("MomoBot " + Bootstrap.VERSION + " based on lavaplayer | by b.jm021", "http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
-        eb.setThumbnail("http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
         message.getChannel().sendMessage(eb.build()).queue();
+
+
+
+        //eb.setFooter("MomoBot " + Bootstrap.VERSION + " based on lavaplayer | by b.jm021", "http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
+        //eb.setThumbnail("http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
     }
 
     private String buildReportForNode(RemoteNode node) {
@@ -581,6 +645,8 @@ public class MusicController implements BotController {
                     } else {
                         scheduler.addToQueue(track);
                     }
+
+                    latestURI = track.getInfo().uri;
                 }
 
                 @Override
@@ -604,6 +670,8 @@ public class MusicController implements BotController {
                     } else {
                         scheduler.addToQueue(selected);
                     }
+
+                    latestURI = selected.getInfo().uri;
 
                     for (int i = 0; i < Math.min(10, playlist.getTracks().size()); i++) {
                         if (tracks.get(i) != selected) {

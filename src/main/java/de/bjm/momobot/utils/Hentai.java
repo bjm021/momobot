@@ -32,7 +32,16 @@ public class Hentai {
 
 
     public enum sites {
-        RULE_34, REALBOORU, SAFEBOORU
+        RULE_34("https://rule34.xxx/"),
+        REALBOORU("https://realbooru.com/"),
+        SAFEBOORU("https://safebooru.org/");
+
+        private String url;
+
+        sites(String url) {
+            this.url = url;
+        }
+
     }
 
 
@@ -53,17 +62,7 @@ public class Hentai {
         CloseableHttpClient client= HttpClientBuilder.create().build();
         StringBuilder sb = new StringBuilder();
 
-        switch (site) {
-            case RULE_34:
-                sb.append("https://rule34.xxx/");
-                break;
-            case REALBOORU:
-                sb.append("https://realbooru.com/");
-                break;
-            case SAFEBOORU:
-                sb.append("https://safebooru.org/");
-                break;
-        }
+        sb.append(site.url);
 
         sb.append("index.php?page=dapi&s=post&q=index&tags=");
         for (String tag : tags) {

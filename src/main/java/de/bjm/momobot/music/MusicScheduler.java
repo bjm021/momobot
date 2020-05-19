@@ -89,6 +89,11 @@ public class MusicScheduler extends AudioEventAdapter implements Runnable {
   @Override
   public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
     if (endReason.mayStartNext) {
+      if (MusicController.repeat) {
+        playNow(track, false);
+        messageDispatcher.sendMessage("Repeating track: " + track.getInfo().title);
+        return;
+      }
       startNextTrack(true);
       messageDispatcher.sendMessage(String.format("Track %s finished.", track.getInfo().title));
     }
