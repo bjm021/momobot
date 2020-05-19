@@ -10,7 +10,7 @@ import java.util.Properties;
 public class Config {
 
     public enum ConfigValue {
-        DEBUG
+        DEBUG, TOKEN
     }
 
     File configFile = new File("." + File.separator + "config.properties");
@@ -25,6 +25,7 @@ public class Config {
             try {
                 // load standard values
                 config.setProperty("DEBUG", "true");
+                config.setProperty("TOKEN", "none");
 
                 configFile.getParentFile().mkdirs();
                 configFile.createNewFile();
@@ -65,6 +66,20 @@ public class Config {
         readFile();
         System.out.println("[DEBUG] getting channel of: " + guild.getId());
         String id = config.getProperty(guild.getId());
+        if (id == null)
+            return null;
         return Bootstrap.getJda().getVoiceChannelById(id);
+    }
+
+    public void setValue(ConfigValue key, String value) {
+        readFile();
+        config.setProperty(key.toString(), value);
+        updateFile();
+    }
+
+    public void setVoiceChannelToUse(Guild guild, String id) {
+        readFile();
+        config.setProperty(guild.getId(), id);
+        updateFile();
     }
 }

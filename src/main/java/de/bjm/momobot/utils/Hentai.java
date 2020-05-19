@@ -15,12 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * This is an implementation of the Hentai API coded by b.jm021.
- * This API uses the sites http://rule34.xxx and http://xbooru.com/
- * (with possible future adaption of all boorus depending on danbooru as its based on origi booru)
- * This API is coded not to spam the Servers with requests
- *
- * As I am the original author of booru this API should work with
- * all sites based on Danbooru which is a direct fork of the original booru
+ * This API uses the sites https://rule34.xxx and https://safebooru.org/ and https://realbooru.com
  *
  * It works in the following way:
  *  The API takes a limit and a list of tags
@@ -42,11 +37,13 @@ public class Hentai {
     /**
      * The API implementation!
      * Api usage explained above
+     * @param site      The booru site to pull from
      * @param tags      An {@link String} Array containing the different Tags
      * @param limit     Tha amount of images to send
      * @param channel   The Discord {@link MessageChannel} in which to post the images
      */
     public static void hentai(sites site, List<String> tags, int limit, MessageChannel channel) {
+        channel.sendMessage(MessageBuilder.buildSuccess("Trying to send " + limit + " images with tags: " + String.join(", ", tags))).queue();
         CloseableHttpClient client= HttpClientBuilder.create().build();
         StringBuilder sb = new StringBuilder();
 
@@ -128,7 +125,7 @@ public class Hentai {
             }
 
             if (postList.size() == 0) {
-                channel.sendMessage("No images found by the given tags").queue();
+                channel.sendMessage(MessageBuilder.buildError("No images found by the given tags", null)).queue();
             }
 
             for (int i = 0; i < limit; i++) {

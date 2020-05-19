@@ -21,3 +21,15 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+#META-INF
+*/META-INF/*
+.DS_Store
+.gradle/
+build/generated/
+build/tmp/
+out/.DS_Store
+out/artifacts/.DS_Store
+out/artifacts/momobot_main_jar/.DS_Store
+out/artifacts/momobot_main_jar/config.properties
+out/run/
