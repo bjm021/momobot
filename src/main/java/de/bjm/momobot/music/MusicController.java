@@ -704,62 +704,128 @@ public class MusicController implements BotController {
                 }
             });
         } else {
-            System.out.println("NO HTTP DETECTED USING YT SEARCH");
-
-            manager.loadItemOrdered(this, "ytsearch: " + identifier, new AudioLoadResultHandler() {
-                @Override
-                public void trackLoaded(AudioTrack track) {
-                    connectToFirstVoiceChannel(guild.getAudioManager());
-
-                    message.getChannel().sendMessage("Starting now: " + track.getInfo().title + " (length " + track.getDuration() + ")").queue();
-
-                    if (now) {
-                        scheduler.playNow(track, true);
-                    } else {
-                        scheduler.addToQueue(track);
-                    }
+            if(identifier.contains("local:")) {
+                String[] identifierSplit = identifier.split(" ");
+                StringBuilder sb = new StringBuilder();
+                for (int i = 1; i < identifierSplit.length; i++) {
+                    sb.append(identifierSplit[i]);
+                    sb.append(" ");
                 }
 
-                @Override
-                public void playlistLoaded(AudioPlaylist playlist) {
-                    List<AudioTrack> tracks = playlist.getTracks();
-                    message.getChannel().sendMessage("Loaded playlist: " + playlist.getName() + " (" + tracks.size() + ")").queue();
+                message.getChannel().sendMessage("trying to get: " + sb.toString()).queue();
 
-                    connectToFirstVoiceChannel(guild.getAudioManager());
+                manager.loadItemOrdered(this, sb.toString(), new AudioLoadResultHandler() {
+                    @Override
+                    public void trackLoaded(AudioTrack track) {
+                        connectToFirstVoiceChannel(guild.getAudioManager());
 
-                    AudioTrack selected = playlist.getSelectedTrack();
+                        message.getChannel().sendMessage("Starting now: " + track.getInfo().title + " (length " + track.getDuration() + ")").queue();
 
-                    if (selected != null) {
-                        message.getChannel().sendMessage("Selected track from playlist: " + selected.getInfo().title).queue();
-                    } else {
-                        selected = tracks.get(0);
-                        message.getChannel().sendMessage("Added first track from playlist: " + selected.getInfo().title).queue();
-                    }
-
-                    if (now) {
-                        scheduler.playNow(selected, true);
-                    } else {
-                        scheduler.addToQueue(selected);
-                    }
-
-                    for (int i = 0; i < Math.min(10, playlist.getTracks().size()); i++) {
-                        if (tracks.get(i) != selected) {
-                            scheduler.addToQueue(tracks.get(i));
+                        if (now) {
+                            scheduler.playNow(track, true);
+                        } else {
+                            scheduler.addToQueue(track);
                         }
                     }
-                }
+
+                    @Override
+                    public void playlistLoaded(AudioPlaylist playlist) {
+                        List<AudioTrack> tracks = playlist.getTracks();
+                        message.getChannel().sendMessage("Loaded playlist: " + playlist.getName() + " (" + tracks.size() + ")").queue();
+
+                        connectToFirstVoiceChannel(guild.getAudioManager());
+
+                        AudioTrack selected = playlist.getSelectedTrack();
+
+                        if (selected != null) {
+                            message.getChannel().sendMessage("Selected track from playlist: " + selected.getInfo().title).queue();
+                        } else {
+                            selected = tracks.get(0);
+                            message.getChannel().sendMessage("Added first track from playlist: " + selected.getInfo().title).queue();
+                        }
+
+                        if (now) {
+                            scheduler.playNow(selected, true);
+                        } else {
+                            scheduler.addToQueue(selected);
+                        }
+
+                        for (int i = 0; i < Math.min(10, playlist.getTracks().size()); i++) {
+                            if (tracks.get(i) != selected) {
+                                scheduler.addToQueue(tracks.get(i));
+                            }
+                        }
+                    }
 
 
-                @Override
-                public void noMatches() {
-                    message.getChannel().sendMessage("Nothing found for " + identifier).queue();
-                }
+                    @Override
+                    public void noMatches() {
+                        message.getChannel().sendMessage("Nothing found for " + identifier).queue();
+                    }
 
-                @Override
-                public void loadFailed(FriendlyException throwable) {
-                    message.getChannel().sendMessage("Failed with message: " + throwable.getMessage() + " (" + throwable.getClass().getSimpleName() + ")").queue();
-                }
-            });
+                    @Override
+                    public void loadFailed(FriendlyException throwable) {
+                        message.getChannel().sendMessage("Failed with message: " + throwable.getMessage() + " (" + throwable.getClass().getSimpleName() + ")").queue();
+                    }
+                });
+            } else {
+                System.out.println("NO HTTP DETECTED USING YT SEARCH");
+
+                manager.loadItemOrdered(this, "ytsearch: " + identifier, new AudioLoadResultHandler() {
+                    @Override
+                    public void trackLoaded(AudioTrack track) {
+                        connectToFirstVoiceChannel(guild.getAudioManager());
+
+                        message.getChannel().sendMessage("Starting now: " + track.getInfo().title + " (length " + track.getDuration() + ")").queue();
+
+                        if (now) {
+                            scheduler.playNow(track, true);
+                        } else {
+                            scheduler.addToQueue(track);
+                        }
+                    }
+
+                    @Override
+                    public void playlistLoaded(AudioPlaylist playlist) {
+                        List<AudioTrack> tracks = playlist.getTracks();
+                        message.getChannel().sendMessage("Loaded playlist: " + playlist.getName() + " (" + tracks.size() + ")").queue();
+
+                        connectToFirstVoiceChannel(guild.getAudioManager());
+
+                        AudioTrack selected = playlist.getSelectedTrack();
+
+                        if (selected != null) {
+                            message.getChannel().sendMessage("Selected track from playlist: " + selected.getInfo().title).queue();
+                        } else {
+                            selected = tracks.get(0);
+                            message.getChannel().sendMessage("Added first track from playlist: " + selected.getInfo().title).queue();
+                        }
+
+                        if (now) {
+                            scheduler.playNow(selected, true);
+                        } else {
+                            scheduler.addToQueue(selected);
+                        }
+
+                        for (int i = 0; i < Math.min(10, playlist.getTracks().size()); i++) {
+                            if (tracks.get(i) != selected) {
+                                scheduler.addToQueue(tracks.get(i));
+                            }
+                        }
+                    }
+
+
+                    @Override
+                    public void noMatches() {
+                        message.getChannel().sendMessage("Nothing found for " + identifier).queue();
+                    }
+
+                    @Override
+                    public void loadFailed(FriendlyException throwable) {
+                        message.getChannel().sendMessage("Failed with message: " + throwable.getMessage() + " (" + throwable.getClass().getSimpleName() + ")").queue();
+                    }
+                });
+            }
         }
     }
 
