@@ -18,7 +18,7 @@ import java.util.Properties;
 public class Config {
 
     public enum ConfigValue {
-        DEBUG("debug"), TOKEN("token");
+        DEBUG("debug"), TOKEN("token"), PREFIX("prefix");
 
         private String id;
 
@@ -44,6 +44,7 @@ public class Config {
                 JSONObject root = new JSONObject();
                 root.put("token", "TOKEN-HERE");
                 root.put("debug", true);
+                root.put("prefix", "-");
                 JSONArray voiceChannels = new JSONArray();
                 root.put("voice-channels", voiceChannels);
                 JSONArray admins = new JSONArray();
@@ -78,6 +79,11 @@ public class Config {
         }
     }
 
+    /**
+     * Gets a value from the config.json file
+     * @param id    The value's key name
+     * @return      The value as string or null if an exception throws
+     */
     public String getValue(ConfigValue id) {
         try {
             JSONObject root = readJSONFile();

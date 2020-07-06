@@ -15,6 +15,7 @@ import com.sedmelluq.lava.common.tools.DaemonThreadFactory;
 import de.bjm.momobot.controller.BotCommandMappingHandler;
 import de.bjm.momobot.controller.BotController;
 import de.bjm.momobot.controller.BotControllerManager;
+import de.bjm.momobot.file.Config;
 import de.bjm.momobot.music.MusicController;
 import de.bjm.momobot.utils.Hentai;
 import de.bjm.momobot.utils.MessageBuilder;
@@ -35,146 +36,145 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class BotApplicationManager extends ListenerAdapter {
-  private static final Logger log = LoggerFactory.getLogger(BotApplicationManager.class);
+    private static final Logger log = LoggerFactory.getLogger(BotApplicationManager.class);
 
-  private final Map<Long, BotGuildContext> guildContexts;
-  private final BotControllerManager controllerManager;
-  private final AudioPlayerManager playerManager;
-  private final ScheduledExecutorService executorService;
-
-
-
-  public BotApplicationManager() {
-
-    guildContexts = new HashMap<>();
-    controllerManager = new BotControllerManager();
-
-    controllerManager.registerController(new MusicController.Factory());
-
-    playerManager = new DefaultAudioPlayerManager();
-    //playerManager.useRemoteNodes("localhost:8080");
-    playerManager.getConfiguration().setResamplingQuality(AudioConfiguration.ResamplingQuality.LOW);
-    playerManager.registerSourceManager(new YoutubeAudioSourceManager());
-    playerManager.registerSourceManager(SoundCloudAudioSourceManager.createDefault());
-    playerManager.registerSourceManager(new BandcampAudioSourceManager());
-    playerManager.registerSourceManager(new VimeoAudioSourceManager());
-    playerManager.registerSourceManager(new TwitchStreamAudioSourceManager());
-    playerManager.registerSourceManager(new BeamAudioSourceManager());
-    playerManager.registerSourceManager(new HttpAudioSourceManager());
-    playerManager.registerSourceManager(new LocalAudioSourceManager());
+    private final Map<Long, BotGuildContext> guildContexts;
+    private final BotControllerManager controllerManager;
+    private final AudioPlayerManager playerManager;
+    private final ScheduledExecutorService executorService;
 
 
+    public BotApplicationManager() {
+
+        guildContexts = new HashMap<>();
+        controllerManager = new BotControllerManager();
+
+        controllerManager.registerController(new MusicController.Factory());
+
+        playerManager = new DefaultAudioPlayerManager();
+        //playerManager.useRemoteNodes("localhost:8080");
+        playerManager.getConfiguration().setResamplingQuality(AudioConfiguration.ResamplingQuality.LOW);
+        playerManager.registerSourceManager(new YoutubeAudioSourceManager());
+        playerManager.registerSourceManager(SoundCloudAudioSourceManager.createDefault());
+        playerManager.registerSourceManager(new BandcampAudioSourceManager());
+        playerManager.registerSourceManager(new VimeoAudioSourceManager());
+        playerManager.registerSourceManager(new TwitchStreamAudioSourceManager());
+        playerManager.registerSourceManager(new BeamAudioSourceManager());
+        playerManager.registerSourceManager(new HttpAudioSourceManager());
+        playerManager.registerSourceManager(new LocalAudioSourceManager());
 
 
-    executorService = Executors.newScheduledThreadPool(1, new DaemonThreadFactory("bot"));
-  }
-
-  public ScheduledExecutorService getExecutorService() {
-    return executorService;
-  }
-
-  public AudioPlayerManager getPlayerManager() {
-    return playerManager;
-  }
-
-  private BotGuildContext createGuildState(long guildId, Guild guild) {
-    BotGuildContext context = new BotGuildContext(guildId);
-
-    for (BotController controller : controllerManager.createControllers(this, context, guild)) {
-      context.controllers.put(controller.getClass(), controller);
+        executorService = Executors.newScheduledThreadPool(1, new DaemonThreadFactory("bot"));
     }
 
-    return context;
-  }
-
-  private synchronized BotGuildContext getContext(Guild guild) {
-    long guildId = Long.parseLong(guild.getId());
-    BotGuildContext context = guildContexts.get(guildId);
-
-    if (context == null) {
-      context = createGuildState(guildId, guild);
-      guildContexts.put(guildId, context);
+    public ScheduledExecutorService getExecutorService() {
+        return executorService;
     }
 
-    return context;
-  }
-
-  @Override
-  public void onMessageReceived(final MessageReceivedEvent event) {
-    Member member = event.getMember();
-
-    if (!event.isFromType(ChannelType.TEXT) || member == null || member.getUser().isBot()) {
-      return;
+    public AudioPlayerManager getPlayerManager() {
+        return playerManager;
     }
 
-    BotGuildContext guildContext = getContext(event.getGuild());
+    private BotGuildContext createGuildState(long guildId, Guild guild) {
+        BotGuildContext context = new BotGuildContext(guildId);
 
-
-    if ((event.getMessage().getContentRaw().startsWith("-hentai") ||
-            event.getMessage().getContentRaw().startsWith("-rule34") ||
-            event.getMessage().getContentRaw().startsWith("-real") ||
-            event.getMessage().getContentRaw().startsWith("-safe")) &&
-            event.getMessage().getContentRaw().split(" ").length == 2) {
-
-      if (event.getMessage().getContentRaw().startsWith("-rule34") || event.getMessage().getContentRaw().startsWith("-hentai")) {
-        try {
-          int c = Integer.parseInt(event.getMessage().getContentRaw().split(" ")[1]);
-          Hentai.hentai(Hentai.sites.RULE_34, new ArrayList<>(), c, event.getChannel());
-        } catch (NumberFormatException e) {
-          event.getTextChannel().sendMessage("The first argument is not a number!").queue();
+        for (BotController controller : controllerManager.createControllers(this, context, guild)) {
+            context.controllers.put(controller.getClass(), controller);
         }
-      } else if (event.getMessage().getContentRaw().startsWith("-safe")) {
-        try {
-          int c = Integer.parseInt(event.getMessage().getContentRaw().split(" ")[1]);
-          Hentai.hentai(Hentai.sites.SAFEBOORU, new ArrayList<>(), c, event.getChannel());
-        } catch (NumberFormatException e) {
-          event.getTextChannel().sendMessage("The first argument is not a number!").queue();
-        }
-      } else if (event.getMessage().getContentRaw().startsWith("-real")) {
-        try {
-          int c = Integer.parseInt(event.getMessage().getContentRaw().split(" ")[1]);
-          Hentai.hentai(Hentai.sites.REALBOORU, new ArrayList<>(), c, event.getChannel());
-        } catch (NumberFormatException e) {
-          event.getTextChannel().sendMessage("The first argument is not a number!").queue();
-        }
-      }
 
-      return;
+        return context;
     }
 
+    private synchronized BotGuildContext getContext(Guild guild) {
+        long guildId = Long.parseLong(guild.getId());
+        BotGuildContext context = guildContexts.get(guildId);
 
-    controllerManager.dispatchMessage(guildContext.controllers, "-", event.getMessage(), new BotCommandMappingHandler() {
-      @Override
-      public void commandNotFound(Message message, String name) {
-        event.getTextChannel().sendMessage(MessageBuilder.buildError("This command does not exist", null)).queue();
-      }
+        if (context == null) {
+            context = createGuildState(guildId, guild);
+            guildContexts.put(guildId, context);
+        }
 
-      @Override
-      public void commandWrongParameterCount(Message message, String name, String usage, int given, int required) {
-        event.getTextChannel().sendMessage(MessageBuilder.buildError("Wrong argument count for command", null)).queue();
-      }
+        return context;
+    }
 
-      @Override
-      public void commandWrongParameterType(Message message, String name, String usage, int index, String value, Class<?> expectedType) {
-        event.getTextChannel().sendMessage(MessageBuilder.buildError("Wrong argument type for command", null)).queue();
-      }
+    @Override
+    public void onMessageReceived(final MessageReceivedEvent event) {
+        Member member = event.getMember();
 
-      @Override
-      public void commandRestricted(Message message, String name) {
-        event.getTextChannel().sendMessage(MessageBuilder.buildError("Command not permitted", null)).queue();
-      }
+        if (!event.isFromType(ChannelType.TEXT) || member == null || member.getUser().isBot()) {
+            return;
+        }
 
-      @Override
-      public void commandException(Message message, String name, Throwable throwable) {
-        event.getTextChannel().sendMessage(MessageBuilder.buildError("Command threw an exception", new Exception(throwable))).queue();
+        BotGuildContext guildContext = getContext(event.getGuild());
 
-        log.error("Command with content {} threw an exception.", message.getContentDisplay(), throwable);
-      }
-    });
-  }
 
-  @Override
-  public void onGuildLeave(GuildLeaveEvent event) {
-    // do stuff
-  }
+        if ((event.getMessage().getContentRaw().startsWith("-hentai") ||
+                event.getMessage().getContentRaw().startsWith("-rule34") ||
+                event.getMessage().getContentRaw().startsWith("-real") ||
+                event.getMessage().getContentRaw().startsWith("-safe")) &&
+                event.getMessage().getContentRaw().split(" ").length == 2) {
+
+            if (event.getMessage().getContentRaw().startsWith("-rule34") || event.getMessage().getContentRaw().startsWith("-hentai")) {
+                try {
+                    int c = Integer.parseInt(event.getMessage().getContentRaw().split(" ")[1]);
+                    Hentai.hentai(Hentai.sites.RULE_34, new ArrayList<>(), c, event.getChannel());
+                } catch (NumberFormatException e) {
+                    event.getTextChannel().sendMessage("The first argument is not a number!").queue();
+                }
+            } else if (event.getMessage().getContentRaw().startsWith("-safe")) {
+                try {
+                    int c = Integer.parseInt(event.getMessage().getContentRaw().split(" ")[1]);
+                    Hentai.hentai(Hentai.sites.SAFEBOORU, new ArrayList<>(), c, event.getChannel());
+                } catch (NumberFormatException e) {
+                    event.getTextChannel().sendMessage("The first argument is not a number!").queue();
+                }
+            } else if (event.getMessage().getContentRaw().startsWith("-real")) {
+                try {
+                    int c = Integer.parseInt(event.getMessage().getContentRaw().split(" ")[1]);
+                    Hentai.hentai(Hentai.sites.REALBOORU, new ArrayList<>(), c, event.getChannel());
+                } catch (NumberFormatException e) {
+                    event.getTextChannel().sendMessage("The first argument is not a number!").queue();
+                }
+            }
+
+            return;
+        }
+
+        String prefix = Bootstrap.getConfig().getValue(Config.ConfigValue.PREFIX);
+        if (prefix == null)
+          prefix = "-";
+        controllerManager.dispatchMessage(guildContext.controllers, prefix, event.getMessage(), new BotCommandMappingHandler() {
+            @Override
+            public void commandNotFound(Message message, String name) {
+                event.getTextChannel().sendMessage(MessageBuilder.buildError("This command does not exist", null)).queue();
+            }
+
+            @Override
+            public void commandWrongParameterCount(Message message, String name, String usage, int given, int required) {
+                event.getTextChannel().sendMessage(MessageBuilder.buildError("Wrong argument count for command", null)).queue();
+            }
+
+            @Override
+            public void commandWrongParameterType(Message message, String name, String usage, int index, String value, Class<?> expectedType) {
+                event.getTextChannel().sendMessage(MessageBuilder.buildError("Wrong argument type for command", null)).queue();
+            }
+
+            @Override
+            public void commandRestricted(Message message, String name) {
+                event.getTextChannel().sendMessage(MessageBuilder.buildError("Command not permitted", null)).queue();
+            }
+
+            @Override
+            public void commandException(Message message, String name, Throwable throwable) {
+                event.getTextChannel().sendMessage(MessageBuilder.buildError("Command threw an exception", new Exception(throwable))).queue();
+
+                log.error("Command with content {} threw an exception.", message.getContentDisplay(), throwable);
+            }
+        });
+    }
+
+    @Override
+    public void onGuildLeave(GuildLeaveEvent event) {
+        // do stuff
+    }
 }
