@@ -38,8 +38,8 @@ import java.util.concurrent.BlockingDeque;
 public class QueueFile {
 
     private Exception latestException;
-    private File queueFile;
-    private static String path = "." + File.separator + "queues.json";
+    private final File queueFile;
+    private static final String path = "." + File.separator + "queues.json";
 
     public Exception getLatestException() {
         return latestException;
