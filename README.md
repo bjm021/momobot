@@ -20,7 +20,7 @@ As stated this is a simple bot and should be no more. Expect standard music bot 
 
 ## Getting Started
 It is very easy to install this bot on your computer / server.
-Refer to [Getting Started](https://github.com/bjm021/momobot/wiki/Getting-started) oin our wiki.
+Refer to [Getting Started](https://github.com/bjm021/momobot/wiki/Getting-started) on our wiki.
 > **Hint** You at least need JAVA Runtime 1.8.0_231 to run this bot
   
   
