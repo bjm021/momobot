@@ -7,6 +7,12 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 
 /**
+ * momobot - discord music bot with live eq based on lavaplayer
+ * Copyright (C) 2019-2020 Benjamin J. Meyer
+ *
+ * This is a simple Discord music bot created just for fun.
+ * It is based on lavaplayer and uses JDA to connect to Discord
+ *
  * This class starts the bot and initializes everything it needs
  */
 public class Bootstrap {
