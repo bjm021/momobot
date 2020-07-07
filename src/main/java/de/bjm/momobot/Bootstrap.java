@@ -40,10 +40,10 @@ public class Bootstrap {
             System.exit(1);
         }
 
-        jda = new JDABuilder()
-                .setToken(token)
-                .addEventListeners(new BotApplicationManager())
-                .setActivity(Activity.playing("-help | momobot.cf"))
-                .build();
+
+        JDABuilder builder = JDABuilder.createDefault(token);
+        builder.addEventListeners(new BotApplicationManager());
+        builder.setActivity(Activity.playing("-help | momobot.cf"));
+        jda = builder.build();
     }
 }
