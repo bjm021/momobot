@@ -55,6 +55,7 @@ public class Config {
                 restrictedCommands.put("listadmins");
                 restrictedCommands.put("setvc");
                 restrictedCommands.put("setdebug");
+                restrictedCommands.put("setprefix");
                 root.put("restricted-commands", restrictedCommands);
 
                 System.out.println("Writing config file...");
