@@ -15,8 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * The Config class handles interactions with the config.json file on the fly!
+ *
+ * Each request for a config value reads the file so that changes can be applied on the fly and take effect without a restart.
+ */
 public class Config {
 
+    /**
+     * Easy handling of config key names! Each enum presents a key name in the root {@link JSONObject} of the config file.
+     */
     public enum ConfigValue {
         DEBUG("debug"), TOKEN("token"), PREFIX("prefix");
 
@@ -33,6 +41,10 @@ public class Config {
 
     File configFile;
 
+    /**
+     * Initializes the config.
+     * This will create a default config file if no config file exists
+     */
     public Config() {
         configFile = new File("." + File.separator + "config.json");
         if (!configFile.exists()) {
@@ -68,6 +80,12 @@ public class Config {
         }
     }
 
+    /**
+     * Writes the value of a specific config key to the file
+     *
+     * @param id        The Kay name of the setting to change
+     * @param value     The value to write to that key
+     */
     public void setValue(ConfigValue id, String value) {
         try {
             JSONObject root = readJSONFile();
