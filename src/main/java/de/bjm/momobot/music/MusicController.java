@@ -640,6 +640,17 @@ public class MusicController implements BotController {
     }
 
     @BotCommandHandler
+    public void getaurl(Message message, Long id) {
+        System.out.println(id);
+        User user = message.getJDA().getUserById(id);
+        if (user != null) {
+            message.getChannel().sendMessage(MessageBuilder.buildSuccess("AvatarUrl of " + user.getName() + " is: " + user.getAvatarUrl())).queue();
+        } else {
+            message.getChannel().sendMessage(MessageBuilder.buildError("No user by that id!", null)).queue();
+        }
+    }
+
+    @BotCommandHandler
     private void help(Message message) {
         String prefix = Bootstrap.getConfig().getValue(Config.ConfigValue.PREFIX);
         if (prefix == null)

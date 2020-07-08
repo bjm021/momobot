@@ -5,6 +5,11 @@ import de.bjm.momobot.file.QueueFile;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Icon;
+import net.dv8tion.jda.api.managers.AccountManager;
+
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * momobot - discord music bot with live eq based on lavaplayer
@@ -83,5 +88,12 @@ public class Bootstrap {
         builder.addEventListeners(new BotApplicationManager());
         builder.setActivity(Activity.playing("-help | momobot.cf"));
         jda = builder.build();
+
+        System.setProperty("http.agent", "");
+        URLConnection connection = new URL(config.getValue(Config.ConfigValue.AVATAR_URL)).openConnection();
+        connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
+        jda.getSelfUser().getManager().setName(config.getValue(Config.ConfigValue.USERNAME))
+                .setAvatar(Icon.from(connection.getInputStream()))
+                .queue();
     }
 }
