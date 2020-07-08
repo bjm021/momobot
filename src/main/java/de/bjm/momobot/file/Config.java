@@ -26,7 +26,7 @@ public class Config {
      * Easy handling of config key names! Each enum presents a key name in the root {@link JSONObject} of the config file.
      */
     public enum ConfigValue {
-        DEBUG("debug"), TOKEN("token"), PREFIX("prefix"), AVATAR_URL("avatar_url"), USERNAME("username");
+        DEBUG("debug"), TOKEN("token"), PREFIX("prefix");
 
         private String id;
 
@@ -57,8 +57,6 @@ public class Config {
                 root.put("token", "TOKEN-HERE");
                 root.put("debug", true);
                 root.put("prefix", "-");
-                root.put("avatar_url", "https://cdn.discordapp.com/app-icons/687607623650246677/9d7776b7ef238ad8c15c97f8d76d5d7f.png?size=512");
-                root.put("username", "Momo (MusicBot)");
                 JSONArray voiceChannels = new JSONArray();
                 root.put("voice-channels", voiceChannels);
                 JSONArray admins = new JSONArray();
@@ -70,6 +68,8 @@ public class Config {
                 restrictedCommands.put("setvc");
                 restrictedCommands.put("setdebug");
                 restrictedCommands.put("setprefix");
+                restrictedCommands.put("setaurl");
+                restrictedCommands.put("setusername");
                 root.put("restricted-commands", restrictedCommands);
 
                 System.out.println("Writing config file...");

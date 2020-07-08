@@ -56,7 +56,7 @@ public class BotControllerManager {
         }
 
         Command command = new Command(commandName, usage, parameters, controllerClass, method);
-        commands.put(command.name, command);
+        commands.put(command.name.toLowerCase(), command);
     }
 
     public void dispatchMessage(Map<Class<? extends BotController>, BotController> instances, String prefix, Message message,
@@ -69,7 +69,7 @@ public class BotControllerManager {
             return;
         }
 
-        String commandName = separated[0].substring(prefix.length());
+        String commandName = separated[0].substring(prefix.length()).toLowerCase();
         Command command = commands.get(commandName);
 
         try {

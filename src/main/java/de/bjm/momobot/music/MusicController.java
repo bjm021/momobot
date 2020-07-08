@@ -34,6 +34,9 @@ import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -651,6 +654,38 @@ public class MusicController implements BotController {
     }
 
     @BotCommandHandler
+    public void setaurl (Message message, String url) {
+        try {
+            URL test = new URL(url);
+            URLConnection connection = test.openConnection();
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
+            if (connection.getHeaderField("Content-Type").equalsIgnoreCase("image/png")) {
+                message.getChannel().sendMessage(MessageBuilder.buildMessage("Attempting to update the Avatar...", Color.CYAN)).queue();
+                message.getJDA().getSelfUser().getManager().setAvatar(Icon.from(connection.getInputStream())).complete();
+                message.getChannel().sendMessage(MessageBuilder.buildSuccess("Successfully updated the Avatar image! (It might take a while to update to your discord. Try pressing on the bot profile)")).queue();
+            } else {
+                message.getChannel().sendMessage(MessageBuilder.buildError("The Server said that your image is not a png!!! But it needs to be! (Server returned MIME type: " + connection.getHeaderField("Content-Type") + " but needs to be image/png)", null)).queue();
+            }
+        } catch (MalformedURLException e) {
+            message.getChannel().sendMessage(MessageBuilder.buildError("This is a malformed URL/URI", null)).queue();
+            return;
+        } catch (IOException e) {
+            message.getChannel().sendMessage(MessageBuilder.buildError("Something went wrong while getting your URL/URI", e)).queue();
+        } catch (NullPointerException e) {
+            //e.printStackTrace();
+            message.getChannel().sendMessage(MessageBuilder.buildError("Seems like your URL/URI is not reachable", null)).queue();
+        }
+
+    }
+
+    @BotCommandHandler
+    public void setUsername(Message message, String name) {
+        message.getChannel().sendMessage(MessageBuilder.buildMessage("Attempting to update username...", Color.CYAN)).queue();
+        message.getJDA().getSelfUser().getManager().setName(name).complete();
+        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Successfully updated the bot name! (It might take a while to update to your discord. Try pressing on the bot profile)")).queue();
+    }
+
+    @BotCommandHandler
     private void help(Message message) {
         String prefix = Bootstrap.getConfig().getValue(Config.ConfigValue.PREFIX);
         if (prefix == null)
@@ -699,6 +734,8 @@ public class MusicController implements BotController {
         eb.addField(prefix + "setprefix <prefixChar>", "sets the prefix of the bot! EFFECTIVE IMMEDIATELY", true);
         eb.addField(prefix + "copyright", "Prints Copyright Information", true);
         eb.addField(prefix + "license", "Prints License Information", true);
+        eb.addField(prefix + "setaurl <url>", "Updates the bot's avatar. May be Rate limited (Don't use too often)", true);
+        eb.addField(prefix + "setusername <username>", "Sets the bot's username", true);
         //eb.setAuthor("MomoBot " + Bootstrap.VERSION, "https://momobot.cf", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png");
         eb.setFooter("MomoBot " + Bootstrap.VERSION + " based on lavaplayer | by b.jm021", "http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
         message.getChannel().sendMessage(eb.build()).queue();
