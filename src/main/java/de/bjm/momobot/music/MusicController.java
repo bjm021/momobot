@@ -198,12 +198,14 @@ public class MusicController implements BotController {
 
     @BotCommandHandler
     private void forward(Message message, int duration) {
-        forPlayingTrack(track -> track.setPosition(track.getPosition() + duration));
+        forPlayingTrack(track -> track.setPosition(track.getPosition() + duration*1000));
+        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Forward " + duration + "seconds!")).queue();
     }
 
     @BotCommandHandler
     private void back(Message message, int duration) {
-        forPlayingTrack(track -> track.setPosition(Math.max(0, track.getPosition() - duration)));
+        forPlayingTrack(track -> track.setPosition(Math.max(0, track.getPosition() - duration*1000)));
+        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Backwards " + duration + "seconds!")).queue();
     }
 
     @BotCommandHandler
@@ -224,6 +226,7 @@ public class MusicController implements BotController {
     @BotCommandHandler
     private void seek(Message message, long position) {
         forPlayingTrack(track -> track.setPosition(position));
+        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Jumped to " + position + "milliseconds!")).queue();
     }
 
     @BotCommandHandler

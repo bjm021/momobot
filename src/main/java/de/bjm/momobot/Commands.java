@@ -206,6 +206,9 @@ public class Commands implements BotController {
         eb.addField(prefix + "resume", "Resumes after pause", true);
         eb.addField(prefix + "volume <value>", "Sets the audio volume", true);
         eb.addField(prefix + "clear", "Clears the queue", true);
+        eb.addField(prefix + "forward <seconds>", "Move forward X seconds!", true);
+        eb.addField(prefix + "back <seconds>", "Move backwards X seconds!", true);
+        eb.addField(prefix + "seek <millisecond>", "Jumps to position X milliseconds.!", true);
         eb.addField("", "EQ COMMANDS", false);
         eb.addField(prefix + "eqstart", "Engages the Equalizer (auto when using eq commands)", true);
         eb.addField(prefix + "eqstop", "Disengages the Equalizer", true);
@@ -217,15 +220,15 @@ public class Commands implements BotController {
         eb.addField(prefix + "rule34 / " + prefix + "hentai <amount> [tags]", "Pulls Hentai images from Rule34", true);
         eb.addField(prefix + "real <amount> [tags]", "Pulls Real images from Realbooru", true);
         eb.addField(prefix + "safe <amount> [tags]", "Pulls SFW images from Safebooru", true);
-        eb.addField("", "Bot Settings Commands", false);
-        eb.addField(prefix + "setvc <channel_id>", "Sets the VoiceChannel the bot uses", true);
-        eb.addField(prefix + "setdebug <true/false>", "Sets the DEBUG mode of the bot", true);
         eb.setAuthor("MomoBot " + Bootstrap.VERSION, "https://momobot.cf", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png");
         eb.setThumbnail("http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
         message.getChannel().sendMessage(eb.build()).queue();
 
         eb = new EmbedBuilder();
         eb.setColor(Color.BLUE);
+        eb.addField("", "Bot Settings Commands", false);
+        eb.addField(prefix + "setvc <channel_id>", "Sets the VoiceChannel the bot uses", true);
+        eb.addField(prefix + "setdebug <true/false>", "Sets the DEBUG mode of the bot", true);
         eb.addField("", "Queue Management", false);
         eb.addField(prefix + "savequeue <name>", "Saves the last 8 queue items in a file", true);
         eb.addField(prefix + "listqueues", "List saved queues", true);
