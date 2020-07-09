@@ -50,6 +50,7 @@ public class BotApplicationManager extends ListenerAdapter {
         controllerManager = new BotControllerManager();
 
         controllerManager.registerController(new MusicController.Factory());
+        controllerManager.registerController(new Commands.Factory());
 
         playerManager = new DefaultAudioPlayerManager();
         //playerManager.useRemoteNodes("localhost:8080");

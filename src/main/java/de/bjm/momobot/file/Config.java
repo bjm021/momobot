@@ -55,7 +55,7 @@ public class Config {
 
                 JSONObject root = new JSONObject();
                 root.put("token", "TOKEN-HERE");
-                root.put("debug", true);
+                root.put("debug", false);
                 root.put("prefix", "-");
                 JSONArray voiceChannels = new JSONArray();
                 root.put("voice-channels", voiceChannels);
