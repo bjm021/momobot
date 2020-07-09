@@ -76,12 +76,18 @@ public class MusicController implements BotController {
         player.addListener(scheduler);
     }
 
-    @BotCommandHandler
+    @BotCommandHandler(
+            name = "add",
+            usage = "add <identifier>"
+    )
     private void add(Message message, String identifier) {
         addTrack(message, identifier, false);
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "now",
+            usage = "now <identifier>"
+    )
     private void now(Message message, String identifier) {
         addTrack(message, identifier, true);
     }
@@ -122,29 +128,43 @@ public class MusicController implements BotController {
         }
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+
+    )
     private void eqsetup(Message message) {
         manager.getConfiguration().setFilterHotSwapEnabled(true);
         player.setFrameBufferDuration(500);
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "eqstart",
+            usage = "eqstart"
+    )
     private void eqstart(Message message) {
         player.setFilterFactory(equalizer);
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "eqstop",
+            usage = "eqstop"
+    )
     private void eqstop(Message message) {
         player.setFilterFactory(null);
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "eqband",
+            usage = "eqband <band> <value>"
+    )
     private void eqband(Message message, int band, float value) {
         player.setFilterFactory(equalizer);
         equalizer.setGain(band, value);
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "eqhighbass",
+            usage = "eqhighbass <diff>"
+    )
     private void eqhighbass(Message message, float diff) {
         player.setFilterFactory(equalizer);
         for (int i = 0; i < BASS_BOOST.length; i++) {
@@ -152,7 +172,10 @@ public class MusicController implements BotController {
         }
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "eqlowbass",
+            usage = "eqlowbass <diff>"
+    )
     private void eqlowbass(Message message, float diff) {
         player.setFilterFactory(equalizer);
         for (int i = 0; i < BASS_BOOST.length; i++) {
@@ -160,7 +183,10 @@ public class MusicController implements BotController {
         }
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "bassboost",
+            usage = "bassboost"
+    )
     private void bassboost(Message message) {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(Color.RED);
@@ -176,7 +202,10 @@ public class MusicController implements BotController {
         }
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "volume",
+            usage = "volume <0-100>"
+    )
     private void volume(Message message, int volume) {
         player.setVolume(volume);
     }
@@ -191,45 +220,69 @@ public class MusicController implements BotController {
         manager.useRemoteNodes();
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "skip",
+            usage = "skip"
+    )
     private void skip(Message message) {
         scheduler.skip();
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "forward",
+            usage = "forward <seconds>"
+    )
     private void forward(Message message, int duration) {
         forPlayingTrack(track -> track.setPosition(track.getPosition() + duration*1000));
         message.getChannel().sendMessage(MessageBuilder.buildSuccess("Forward " + duration + "seconds!")).queue();
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "back",
+            usage = "back <seconds>"
+    )
     private void back(Message message, int duration) {
         forPlayingTrack(track -> track.setPosition(Math.max(0, track.getPosition() - duration*1000)));
         message.getChannel().sendMessage(MessageBuilder.buildSuccess("Backwards " + duration + "seconds!")).queue();
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "pause",
+            usage = "pause"
+    )
     private void pause(Message message) {
         player.setPaused(true);
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "resume",
+            usage = "resume"
+    )
     private void resume(Message message) {
         player.setPaused(false);
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "duration",
+            usage = "duration"
+    )
     private void duration(Message message) {
         forPlayingTrack(track -> message.getChannel().sendMessage("Duration is " + track.getDuration()).queue());
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "seek",
+            usage = "seek <milliseconds>"
+    )
     private void seek(Message message, long position) {
         forPlayingTrack(track -> track.setPosition(position));
         message.getChannel().sendMessage(MessageBuilder.buildSuccess("Jumped to " + position + "milliseconds!")).queue();
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "pos",
+            usage = "pos"
+    )
     private void pos(Message message) {
         forPlayingTrack(track -> message.getChannel().sendMessage("Position is " + track.getPosition()).queue());
     }
@@ -244,7 +297,10 @@ public class MusicController implements BotController {
         forPlayingTrack(track -> track.setMarker(null));
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "version",
+            usage = "version"
+    )
     private void version(Message message) {
         message.getChannel().sendMessage(MessageBuilder.buildSuccess("Running momobot " + Bootstrap.VERSION + " (using PlayerLibrary " + PlayerLibrary.VERSION + ")")).queue();
     }
@@ -270,24 +326,36 @@ public class MusicController implements BotController {
         });
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "leave",
+            usage = "leave"
+    )
     private void leave(Message message) {
         guild.getAudioManager().closeAudioConnection();
     }
 
-    @BotCommandHandler
+    @BotCommandHandler(
+            name = "stop",
+            usage = "stop"
+    )
     private void stop(Message message) {
         player.setPaused(true);
         guild.getAudioManager().closeAudioConnection();
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "clear",
+            usage = "clear"
+    )
     private void clear(Message message) {
         scheduler.clearQueue();
         message.getChannel().sendMessage("Queue cleared!").queue();
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "setvc",
+            usage = "setvc <voice_channel_id>"
+    )
     private void setvc(Message message, String id) {
         try {
             VoiceChannel vc = message.getGuild().getVoiceChannelById(id);
@@ -304,7 +372,10 @@ public class MusicController implements BotController {
 
 
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "listqueues",
+            usage = "listqueues"
+    )
     private void listqueues(Message message) {
         List<String> queues = Bootstrap.getQueueFile().listQueues();
         if (queues != null) {
@@ -317,7 +388,10 @@ public class MusicController implements BotController {
         }
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "savequeue",
+            usage = "savequeue <name>"
+    )
     private void savequeue(Message message, String name) {
         message.getChannel().sendMessage("Trying to save queue to file").queue();
 
@@ -335,7 +409,10 @@ public class MusicController implements BotController {
         }
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "loadqueue",
+            usage = "loadqueue <existing_name>"
+    )
     private void loadqueue(Message message, String name) {
         List<String> items = Bootstrap.getQueueFile().getQueueItems(name);
 
@@ -353,7 +430,10 @@ public class MusicController implements BotController {
     }
 
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "repeattrack",
+            usage = "repeattrack"
+    )
         private void repeattrack(Message message) {
 
         if (player.getPlayingTrack() == null) {
@@ -417,7 +497,10 @@ public class MusicController implements BotController {
     }
     */
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "geturi",
+            usage = "geturi"
+    )
     private void geturi(Message message) {
         if (player.getPlayingTrack() == null) {
             message.getChannel().sendMessage(MessageBuilder.buildError("There is currently no track playing", null)).queue();
@@ -425,6 +508,14 @@ public class MusicController implements BotController {
         }
 
         message.getChannel().sendMessage(player.getPlayingTrack().getInfo().uri).queue();
+    }
+
+    @BotCommandHandler (
+            name = "geturl",
+            usage = "geturl"
+    )
+    private void getUrl(Message message) {
+        geturi(message);
     }
 
 

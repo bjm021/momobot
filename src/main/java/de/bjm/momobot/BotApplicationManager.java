@@ -152,7 +152,7 @@ public class BotApplicationManager extends ListenerAdapter {
 
             @Override
             public void commandWrongParameterCount(Message message, String name, String usage, int given, int required) {
-                event.getTextChannel().sendMessage(MessageBuilder.buildError("Wrong argument count for command (See -help for usage)", null)).queue();
+                event.getTextChannel().sendMessage(MessageBuilder.buildError("Wrong argument count for command. Usage: " + Bootstrap.getConfig().getValue(Config.ConfigValue.PREFIX) + usage + " ", null)).queue();
             }
 
             @Override

@@ -8,10 +8,7 @@ import de.bjm.momobot.music.MusicController;
 import de.bjm.momobot.utils.Hentai;
 import de.bjm.momobot.utils.MessageBuilder;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Icon;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.*;
 
 import java.awt.*;
 import java.io.IOException;
@@ -31,18 +28,28 @@ public class Commands implements BotController {
     }
 
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "Test Command",
+            usage = "testc"
+    )
     private void testc(Message message) {
         message.getChannel().sendMessage("test successful").queue();
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "setPrefix",
+            usage = "setprefix <prefix>"
+    )
     private void setPrefix(Message message, String prefix) {
         Bootstrap.getConfig().setValue(Config.ConfigValue.PREFIX, prefix);
+        message.getJDA().getPresence().setActivity(Activity.playing(Bootstrap.getConfig().getValue(Config.ConfigValue.PREFIX) + "help | momobot.cf"));
         message.getChannel().sendMessage(MessageBuilder.buildSuccess("Prefix set to " + prefix + "! EFFECTIVE IMMEDIATELY")).queue();
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "getaurl",
+            usage = "getaurl <user_id>"
+    )
     public void getaurl(Message message, Long id) {
         System.out.println(id);
         User user = message.getJDA().getUserById(id);
@@ -53,7 +60,10 @@ public class Commands implements BotController {
         }
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "setaurl",
+            usage = "setaurl <valid_png_url>"
+    )
     public void setaurl (Message message, String url) {
         try {
             URL test = new URL(url);
@@ -78,12 +88,18 @@ public class Commands implements BotController {
 
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "copyright",
+            usage = "copyright"
+    )
     private void copyright(Message message) {
         message.getChannel().sendMessage(MessageBuilder.buildMessage("Copyright (C) 2019-2020 Benjamin J. Meyer / BJM Development", Color.GREEN)).queue();
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "listadmins",
+            usage = "listadmins"
+    )
     private void listadmins(Message message) {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("Admin List");
@@ -101,7 +117,10 @@ public class Commands implements BotController {
 
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "addadmin",
+            usage = "addadmin <user_id>"
+    )
     private void addadmin(Message message, String id) {
         User user = message.getJDA().getUserById(id);
         if (user != null) {
@@ -121,14 +140,20 @@ public class Commands implements BotController {
         }
     }
 
-    @BotCommandHandler
+    @BotCommandHandler(
+            name = "setdebug",
+            usage = "setdebug <true/false>"
+    )
     private void setdebug(Message message, String bool) {
         boolean val = Boolean.parseBoolean(bool);
         Bootstrap.getConfig().setValue(Config.ConfigValue.DEBUG, Boolean.toString(val));
         message.getChannel().sendMessage(MessageBuilder.buildSuccess("Successfully set DEBUG mode to " + val)).queue();
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "rule34",
+            usage = "rule34 <amount> [tag tag tag...]"
+    )
     private void rule34(Message message, int amount, String tags) {
         if (message.getTextChannel().isNSFW()) {
             System.out.println("HENTAI " + tags);
@@ -140,13 +165,19 @@ public class Commands implements BotController {
         }
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "hentai",
+            usage = "hentai <amount> [tag tag tag...]"
+    )
     private void hentai(Message message, int amount, String tags) {
         rule34(message, amount, tags);
     }
 
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "real",
+            usage = "real <amount> [tag tag tag...]"
+    )
     private void real(Message message, int amount, String tags) {
         if (message.getTextChannel().isNSFW()) {
             System.out.println("HENTAI " + tags);
@@ -158,7 +189,10 @@ public class Commands implements BotController {
         }
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "safe",
+            usage = "safe <amount> [tag tag tag...]"
+    )
     private void safe(Message message, int amount, String tags) {
         if (message.getTextChannel().isNSFW()) {
             System.out.println("HENTAI " + tags);
@@ -170,7 +204,10 @@ public class Commands implements BotController {
         }
     }
 
-    @BotCommandHandler
+    @BotCommandHandler(
+            name = "removeadmin",
+            usage = "removeadmin <user_id>"
+    )
     private void removeadmin(Message message, String id) {
         User user = message.getJDA().getUserById(id);
         if (user != null) {
@@ -190,7 +227,10 @@ public class Commands implements BotController {
         }
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "help",
+            usage = "help"
+    )
     private void help(Message message) {
         String prefix = Bootstrap.getConfig().getValue(Config.ConfigValue.PREFIX);
         if (prefix == null)
@@ -254,7 +294,10 @@ public class Commands implements BotController {
         //eb.setThumbnail("http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
     }
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "setusername",
+            usage = "setusername <name>"
+    )
     public void setUsername(Message message, String name) {
         message.getChannel().sendMessage(MessageBuilder.buildMessage("Attempting to update username...", Color.CYAN)).queue();
         message.getJDA().getSelfUser().getManager().setName(name).complete();
@@ -264,7 +307,10 @@ public class Commands implements BotController {
 
 
 
-    @BotCommandHandler
+    @BotCommandHandler (
+            name = "license",
+            usage = "license"
+    )
     private void license(Message message) {
         message.getChannel().sendMessage("\n" +
                 "                      GNU GENERAL PUBLIC LICENSE\n" +

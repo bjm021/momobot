@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Icon;
 import net.dv8tion.jda.api.managers.AccountManager;
+import net.dv8tion.jda.api.managers.Presence;
 
 import java.io.File;
 import java.net.URL;
@@ -100,7 +101,7 @@ public class Bootstrap {
 
         JDABuilder builder = JDABuilder.createDefault(token);
         builder.addEventListeners(new BotApplicationManager());
-        builder.setActivity(Activity.playing("-help | momobot.cf"));
+        builder.setActivity(Activity.playing(config.getValue(Config.ConfigValue.PREFIX) + "help | momobot.cf"));
         jda = builder.build();
 
         System.setProperty("http.agent", "");
