@@ -19,6 +19,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class contains all commands that are not music related
+ *
+ * The commands have been moved here because the {@link MusicController} Class became to overloaded with non music commands
+ *
+ */
 public class Commands implements BotController {
 
     private final Guild guild;

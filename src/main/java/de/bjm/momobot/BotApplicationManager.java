@@ -143,7 +143,7 @@ public class BotApplicationManager extends ListenerAdapter {
 
         String prefix = Bootstrap.getConfig().getValue(Config.ConfigValue.PREFIX);
         if (prefix == null)
-          prefix = "-";
+            prefix = "-";
         controllerManager.dispatchMessage(guildContext.controllers, prefix, event.getMessage(), new BotCommandMappingHandler() {
             @Override
             public void commandNotFound(Message message, String name) {
