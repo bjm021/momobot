@@ -33,6 +33,7 @@ out/artifacts/.DS_Store
 out/artifacts/momobot_main_jar/.DS_Store
 out/artifacts/momobot_main_jar/config.properties
 out/run/
+out/*
 src/main/META-INF/
 /src/main/META-INF/*
 /src/main/META-INF/
