@@ -60,13 +60,6 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 |-----|-----|
 | -seek \<milliseconds\> | Jumps to the position x of the current resource |
 
-
-#### test 
-
-| Priority apples | Second priority |
-|-------|--------|
-| ambrosia | gala |
-
 ### EQ Commands
 
 #### -eqstart
