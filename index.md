@@ -18,19 +18,19 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 |-----|-----|
 | -add \<identifier\> | Adds a resource to the queue |
 
-### -pause
+#### -pause
 
 | usage | description |
 |-----|-----|
 | -pause | Pauses the current playback |
 
-### -resume
+#### -resume
 
 | usage | description |
 |-----|-----|
 | -resume | Resumes the playback |
 
-### -volume
+#### -volume
 
 | usage | description |
 |-----|-----|
@@ -50,7 +50,7 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzA1NTQzNDMxLC0yMTMyMTA5NTY3LDE5MT
-c5MDY1OCwtMTk5NTM1NTM2OCw1MjMwNTY5ODQsMTU0OTIyOTc0
-M119
+eyJoaXN0b3J5IjpbLTIxNjE2ODE5NCwtMjEzMjEwOTU2NywxOT
+E3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2OTg0LDE1NDkyMjk3
+NDNdfQ==
 -->
