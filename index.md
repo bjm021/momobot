@@ -99,12 +99,18 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 |-----|-----|
 | -eqlowbass \<value\> | Adds gain to the lower bands of the EQ |
 
+#### -bassboost
+
+| usage | description |
+|-----|-----|
+| -bassboost \<value\> | Engages bass boost (prepare for earrape) |
+
 
 ## Installations 
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc3NjAzMjk3NCwtMjEzMjEwOTU2NywxOT
-E3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2OTg0LDE1NDkyMjk3
-NDNdfQ==
+eyJoaXN0b3J5IjpbLTE0MTA4ODE3NjUsLTIxMzIxMDk1NjcsMT
+kxNzkwNjU4LC0xOTk1MzU1MzY4LDUyMzA1Njk4NCwxNTQ5MjI5
+NzQzXX0=
 -->
