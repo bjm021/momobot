@@ -8,9 +8,9 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 
 #### -now
 
-| Priority apples | Second priority |
-|-------|--------|
-| ambrosia | gala |
+| usage | description |
+|-----|-----|
+| -now \<identifier\> | Plays a resource immediately |
 
 #### -add
 
@@ -31,6 +31,6 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MDk1Nzc1NzEsMTkxNzkwNjU4LC0xOT
+eyJoaXN0b3J5IjpbLTIxMzIxMDk1NjcsMTkxNzkwNjU4LC0xOT
 k1MzU1MzY4LDUyMzA1Njk4NCwxNTQ5MjI5NzQzXX0=
 -->
