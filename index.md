@@ -106,7 +106,7 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 | -bassboost \<value\> | Engages bass boost (prepare for earrape) |
 
 
-## Installations 
+## Installation
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
