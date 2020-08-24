@@ -54,6 +54,12 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 |-----|-----|
 | -back \<seconds\> | Moves the playback position backwards by x seconds |
 
+#### -seek
+
+| usage | description |
+|-----|-----|
+| -seek \<milliseconds\> | Jumps to the position x of the current resource |
+
 
 #### test 
 
@@ -68,7 +74,7 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzM5MzU4Mjg0LC0yMTMyMTA5NTY3LDE5MT
-c5MDY1OCwtMTk5NTM1NTM2OCw1MjMwNTY5ODQsMTU0OTIyOTc0
-M119
+eyJoaXN0b3J5IjpbNDAyMDk1NDQsLTIxMzIxMDk1NjcsMTkxNz
+kwNjU4LC0xOTk1MzU1MzY4LDUyMzA1Njk4NCwxNTQ5MjI5NzQz
+XX0=
 -->
