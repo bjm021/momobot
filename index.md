@@ -4,7 +4,7 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 
 ## Commands
 
-### Generic Commnds
+### Generic Commands
 
 #### -now
 
@@ -67,14 +67,32 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 |-------|--------|
 | ambrosia | gala |
 
+### EQ Commands
 
+#### -eqstart
+
+| usage | description |
+|-----|-----|
+| -eqstart | Engages the EQ and updates the playback on the fly |
+
+#### -eqstop
+
+| usage | description |
+|-----|-----|
+| -eqstop | Disengages the EQ on the fly |
+
+#### -eqband
+
+| usage | description |
+|-----|-----|
+| -eqband \<band\> \< | Changes the volume of the bot |
 
 
 ## Installations 
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDAyMDk1NDQsLTIxMzIxMDk1NjcsMTkxNz
-kwNjU4LC0xOTk1MzU1MzY4LDUyMzA1Njk4NCwxNTQ5MjI5NzQz
-XX0=
+eyJoaXN0b3J5IjpbMTY0NTYyMDIwOCwtMjEzMjEwOTU2NywxOT
+E3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2OTg0LDE1NDkyMjk3
+NDNdfQ==
 -->
