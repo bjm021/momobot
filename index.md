@@ -36,6 +36,12 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 |-----|-----|
 | -volume \<value\> | Changes the volume of the bot |
 
+#### -clear
+
+| usage | description |
+|-----|-----|
+| -clear | Clears the queue completely |
+
 
 #### test 
 
@@ -50,7 +56,7 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxNjE2ODE5NCwtMjEzMjEwOTU2NywxOT
+eyJoaXN0b3J5IjpbMjExODQxOTUwNywtMjEzMjEwOTU2NywxOT
 E3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2OTg0LDE1NDkyMjk3
 NDNdfQ==
 -->
