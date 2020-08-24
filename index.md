@@ -42,6 +42,18 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 |-----|-----|
 | -clear | Clears the queue completely |
 
+#### -forward
+
+| usage | description |
+|-----|-----|
+| -forward \<seconds\> | Moves the playback position forward by x seconds |
+
+#### -back
+
+| usage | description |
+|-----|-----|
+| -back \<seconds\> | Moves the playback position backwards by x seconds |
+
 
 #### test 
 
@@ -56,7 +68,7 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjExODQxOTUwNywtMjEzMjEwOTU2NywxOT
-E3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2OTg0LDE1NDkyMjk3
-NDNdfQ==
+eyJoaXN0b3J5IjpbNzM5MzU4Mjg0LC0yMTMyMTA5NTY3LDE5MT
+c5MDY1OCwtMTk5NTM1NTM2OCw1MjMwNTY5ODQsMTU0OTIyOTc0
+M119
 -->
