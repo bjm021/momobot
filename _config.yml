@@ -1,3 +1,4 @@
 theme: jekyll-theme-cayman
 title: momobot - A simple discord music bot
 description: Command Reference
+show_downloads: true
