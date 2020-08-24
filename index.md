@@ -13,7 +13,7 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 
 #### -add
 | usage | description |
-| --- | --- |
+|-----|-----|
 | -add \<identifier\> | Adds a resource to the queue |
 
 #### test 
@@ -30,6 +30,6 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQxMzY4MzAyOCwtMTk5NTM1NTM2OCw1Mj
-MwNTY5ODQsMTU0OTIyOTc0M119
+eyJoaXN0b3J5IjpbLTE4NDkzNTIwNzIsLTE5OTUzNTUzNjgsNT
+IzMDU2OTg0LDE1NDkyMjk3NDNdfQ==
 -->
