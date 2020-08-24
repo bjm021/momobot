@@ -85,14 +85,26 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 
 | usage | description |
 |-----|-----|
-| -eqband \<band\> \< | Changes the volume of the bot |
+| -eqband \<band\> \<value\> | Sets the given band of the EQ to the given value up or down |
+
+#### -eqhighbass
+
+| usage | description |
+|-----|-----|
+| -eqhighbass \<value\> | Adds gain to the higher bands of the EQ |
+
+#### -eqlowbass
+
+| usage | description |
+|-----|-----|
+| -eqlowbass \<value\> | Adds gain to the lower bands of the EQ |
 
 
 ## Installations 
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY0NTYyMDIwOCwtMjEzMjEwOTU2NywxOT
+eyJoaXN0b3J5IjpbMTc3NjAzMjk3NCwtMjEzMjEwOTU2NywxOT
 E3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2OTg0LDE1NDkyMjk3
 NDNdfQ==
 -->
