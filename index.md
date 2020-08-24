@@ -18,11 +18,11 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 
 #### test 
 
-| Priority apples | Second priority | Third priority |
-|-------|--------|---------|
-| ambrosia | gala | red delicious |
-| pink lady | jazz | macintosh |
-| honeycrisp | granny smith | fuji |
+| Priority apples | Second priority |
+|-------|--------|
+| ambrosia | gala |
+| pink lady | jazz |
+| honeycrisp | granny smith |
 
 
 
@@ -30,6 +30,6 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTE3ODczNzc0LC0xOTk1MzU1MzY4LDUyMz
-A1Njk4NCwxNTQ5MjI5NzQzXX0=
+eyJoaXN0b3J5IjpbLTQxMzY4MzAyOCwtMTk5NTM1NTM2OCw1Mj
+MwNTY5ODQsMTU0OTIyOTc0M119
 -->
