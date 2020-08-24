@@ -8,8 +8,8 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 
 #### -now
 | usage | description |
-| --- | --- |
-| -now \<identifier\> | Plays a resource now |
+|-------|--------|
+| -now \<identifier\> | Plays a resources immediately |
 
 #### -add
 | usage | description |
@@ -30,6 +30,6 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4NDkzNTIwNzIsLTE5OTUzNTUzNjgsNT
-IzMDU2OTg0LDE1NDkyMjk3NDNdfQ==
+eyJoaXN0b3J5IjpbLTIyNTgxMjU5NiwtMTk5NTM1NTM2OCw1Mj
+MwNTY5ODQsMTU0OTIyOTc0M119
 -->
