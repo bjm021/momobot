@@ -102,6 +102,14 @@ public class Commands implements BotController {
         message.getChannel().sendMessage(MessageBuilder.buildMessage("Copyright (C) 2019-2020 Benjamin J. Meyer / BJM Development", Color.GREEN)).queue();
     }
 
+    @BotCommandHandler
+    private void osInfo(Message message) {
+        MessageChannel channel = message.getChannel();
+        channel.sendMessage(MessageBuilder.buildSuccess("Running on: " + System.getProperty("os.name") + " "
+                + System.getProperty("os.arch") + " "
+                + System.getProperty("os.version") + " with Java " + System.getProperty("java.version"))).queue();
+    }
+
     @BotCommandHandler (
             name = "listadmins",
             usage = "listadmins"
