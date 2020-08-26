@@ -149,13 +149,19 @@ Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more informa
 
 | usage | description |
 |-----|-----|
-| -loadqueue \<name\> | Loads a prev |
+| -loadqueue \<name\> | Loads a previously saved queue |
+
+#### -listqueues
+
+| usage | description |
+|-----|-----|
+| -listqueues | Lists all saved queues and their names |
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA3NzU4MTM4NSwtMTQxMDg4MTc2NSwtMj
+eyJoaXN0b3J5IjpbMTgxOTc1MDE4OSwtMTQxMDg4MTc2NSwtMj
 EzMjEwOTU2NywxOTE3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2
 OTg0LDE1NDkyMjk3NDNdfQ==
 -->
