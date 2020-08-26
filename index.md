@@ -163,7 +163,14 @@ Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more informa
 
 | usage | description |
 |-----|-----|
-| -loadqueue \<name\> | Loads a previously saved queue |
+| -addadmin \<user_id\> | Promotes a user to admin status. Note that this user will be admin on all guilds where this instance of the bot is running. |
+
+#### -removeadmin
+
+| usage | description |
+|-----|-----|
+| -removeadmin \<user_id\> | Removes an admin from the bot settings. Note that this user will be admin on all guilds where this instance of the bot is running |
+
 
 
 
@@ -171,7 +178,7 @@ Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more informa
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwMTA2NzM2NDMsLTE0MTA4ODE3NjUsLT
-IxMzIxMDk1NjcsMTkxNzkwNjU4LC0xOTk1MzU1MzY4LDUyMzA1
-Njk4NCwxNTQ5MjI5NzQzXX0=
+eyJoaXN0b3J5IjpbLTY0MzQ1MDg5MSwtMTQxMDg4MTc2NSwtMj
+EzMjEwOTU2NywxOTE3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2
+OTg0LDE1NDkyMjk3NDNdfQ==
 -->
