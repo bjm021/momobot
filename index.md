@@ -172,13 +172,35 @@ Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more informa
 | -removeadmin \<user_id\> | Removes an admin from the bot settings. Note that this user will be admin on all guilds where this instance of the bot is running |
 
 
+#### -listadmins
+
+| usage | description |
+|-----|-----|
+| -listadmins | Lists all admin of this bot's instance |
+
+##### Hint
+
+To restrict commands add their names (without the prefix) to the config.json file! After that only admins have permission to execute these commands!
+
+### Miscellaneous commands
+
+#### -setprefix
+
+| usage | description |
+|-----|-----|
+| -setprefix <\\> | Lists all admin of this bot's instance |
+
+
+‎
+
+
 
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY0MzQ1MDg5MSwtMTQxMDg4MTc2NSwtMj
-EzMjEwOTU2NywxOTE3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2
-OTg0LDE1NDkyMjk3NDNdfQ==
+eyJoaXN0b3J5IjpbNzgxOTIyNjU1LC0xNDEwODgxNzY1LC0yMT
+MyMTA5NTY3LDE5MTc5MDY1OCwtMTk5NTM1NTM2OCw1MjMwNTY5
+ODQsMTU0OTIyOTc0M119
 -->
