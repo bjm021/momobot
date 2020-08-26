@@ -98,12 +98,21 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 |-----|-----|
 | -bassboost \<value\> | Engages bass boost (prepare for earrape) |
 
+### NSFW Commands
+
+#### -hentai / -rule34
+
+| usage | description |
+|-----|-----|
+| -rule34 \<amount\> [tags] | Pulls Hentai images from Rule34. |
+| -hentai \<amount\> [tags] | Pulls Hentai images from Rule34. |
+
 
 ## Installation
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0MTA4ODE3NjUsLTIxMzIxMDk1NjcsMT
-kxNzkwNjU4LC0xOTk1MzU1MzY4LDUyMzA1Njk4NCwxNTQ5MjI5
-NzQzXX0=
+eyJoaXN0b3J5IjpbLTEyNjQ2MTY4NzYsLTE0MTA4ODE3NjUsLT
+IxMzIxMDk1NjcsMTkxNzkwNjU4LC0xOTk1MzU1MzY4LDUyMzA1
+Njk4NCwxNTQ5MjI5NzQzXX0=
 -->
