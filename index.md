@@ -197,6 +197,18 @@ To restrict commands add their names (without the prefix) to the config.json fil
 |-----|-----|
 | -setaurl \<avatar url\> | Updates the bot's avatar. May be Rate limited (Don't use too often) |
 
+##### Requirement
+
+The image url must be a valid png and has Mime-Type: image/png
+
+#### -set
+
+| usage | description |
+|-----|-----|
+| -setaurl \<avatar url\> | Updates the bot's avatar. May be Rate limited (Don't use too often) |
+
+
+
 
 
 
@@ -209,7 +221,7 @@ To restrict commands add their names (without the prefix) to the config.json fil
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTYyNDMwMTIzMywtMTQxMDg4MTc2NSwtMj
+eyJoaXN0b3J5IjpbMTcxOTUwNTg5MywtMTQxMDg4MTc2NSwtMj
 EzMjEwOTU2NywxOTE3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2
 OTg0LDE1NDkyMjk3NDNdfQ==
 -->
