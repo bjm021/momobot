@@ -107,12 +107,24 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 | -rule34 \<amount\> [tags] | Pulls Hentai images from Rule34. |
 | -hentai \<amount\> [tags] | Pulls Hentai images from Rule34. |
 
+#### -real
+
+| usage | description |
+|-----|-----|
+| -real \<amount\> [tags] | Pulls Real images from Realbooru. |
+
+#### -safe
+
+| usage | description |
+|-----|-----|
+| -safe \<amount\> [tags] | Pulls SFW images from Safebooru. |
+
 
 ## Installation
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNjQ2MTY4NzYsLTE0MTA4ODE3NjUsLT
-IxMzIxMDk1NjcsMTkxNzkwNjU4LC0xOTk1MzU1MzY4LDUyMzA1
-Njk4NCwxNTQ5MjI5NzQzXX0=
+eyJoaXN0b3J5IjpbMTI0NDc3MTA5NywtMTQxMDg4MTc2NSwtMj
+EzMjEwOTU2NywxOTE3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2
+OTg0LDE1NDkyMjk3NDNdfQ==
 -->
