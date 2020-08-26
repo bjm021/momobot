@@ -208,6 +208,19 @@ The image url must be a valid png and has Mime-Type: image/png
 | -setusername \<username\> | Changes the bot's account name |
 
 
+#### -copyright
+
+| usage | description |
+|-----|-----|
+| -copyright | Prints copyright info |
+
+#### -license
+
+| usage | description |
+|-----|-----|
+| -license | Prints license info |
+
+
 
 
 
@@ -221,7 +234,7 @@ The image url must be a valid png and has Mime-Type: image/png
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjYwMDU2MjY5LC0xNDEwODgxNzY1LC0yMT
-MyMTA5NTY3LDE5MTc5MDY1OCwtMTk5NTM1NTM2OCw1MjMwNTY5
-ODQsMTU0OTIyOTc0M119
+eyJoaXN0b3J5IjpbMTk1NTUwNTE3NywtMTQxMDg4MTc2NSwtMj
+EzMjEwOTU2NywxOTE3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2
+OTg0LDE1NDkyMjk3NDNdfQ==
 -->
