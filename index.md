@@ -157,11 +157,21 @@ Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more informa
 |-----|-----|
 | -listqueues | Lists all saved queues and their names |
 
+### Administrative commands
+
+#### -addadmin
+
+| usage | description |
+|-----|-----|
+| -loadqueue \<name\> | Loads a previously saved queue |
+
+
+
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTgxOTc1MDE4OSwtMTQxMDg4MTc2NSwtMj
-EzMjEwOTU2NywxOTE3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2
-OTg0LDE1NDkyMjk3NDNdfQ==
+eyJoaXN0b3J5IjpbLTIwMTA2NzM2NDMsLTE0MTA4ODE3NjUsLT
+IxMzIxMDk1NjcsMTkxNzkwNjU4LC0xOTk1MzU1MzY4LDUyMzA1
+Njk4NCwxNTQ5MjI5NzQzXX0=
 -->
