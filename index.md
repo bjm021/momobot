@@ -127,12 +127,18 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 |-----|-----|
 | -setvc \<voice_channel_id\> | Sets the voice channel the bot should use. Normally it uses the default one / first one. |
 
+#### -setdebug
+
+| usage | description |
+|-----|-----|
+| -setdebug \<true/false\> | Enables / Disabled the debug mode of the bot. While oil debug mode every exception the bot encounters will be logged with a stack trace as a discord message |
+
 
 ## Installation
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjI2MDE2MjAyLC0xNDEwODgxNzY1LC0yMT
-MyMTA5NTY3LDE5MTc5MDY1OCwtMTk5NTM1NTM2OCw1MjMwNTY5
-ODQsMTU0OTIyOTc0M119
+eyJoaXN0b3J5IjpbLTg4NjM2MDI5OCwtMTQxMDg4MTc2NSwtMj
+EzMjEwOTU2NywxOTE3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2
+OTg0LDE1NDkyMjk3NDNdfQ==
 -->
