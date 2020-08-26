@@ -201,11 +201,11 @@ To restrict commands add their names (without the prefix) to the config.json fil
 
 The image url must be a valid png and has Mime-Type: image/png
 
-#### -set
+#### -setusername
 
 | usage | description |
 |-----|-----|
-| -setaurl \<avatar url\> | Updates the bot's avatar. May be Rate limited (Don't use too often) |
+| -setusername \<username\> | Changes the bot's account name |
 
 
 
@@ -221,7 +221,7 @@ The image url must be a valid png and has Mime-Type: image/png
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTcxOTUwNTg5MywtMTQxMDg4MTc2NSwtMj
-EzMjEwOTU2NywxOTE3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2
-OTg0LDE1NDkyMjk3NDNdfQ==
+eyJoaXN0b3J5IjpbMjYwMDU2MjY5LC0xNDEwODgxNzY1LC0yMT
+MyMTA5NTY3LDE5MTc5MDY1OCwtMTk5NTM1NTM2OCw1MjMwNTY5
+ODQsMTU0OTIyOTc0M119
 -->
