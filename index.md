@@ -188,7 +188,16 @@ To restrict commands add their names (without the prefix) to the config.json fil
 
 | usage | description |
 |-----|-----|
-| -setprefix <\\> | Lists all admin of this bot's instance |
+| -setprefix \<prefix_character\> | Changes the command prefix of the bot. NOTE: This change takes effect immediately (no restart required!) |
+
+
+#### -setaurl
+
+| usage | description |
+|-----|-----|
+| -setaurl \<avatar url\> | Updates the bot's avatar. May be Rate limited (Don't use too often) |
+
+
 
 
 ‎
@@ -200,7 +209,7 @@ To restrict commands add their names (without the prefix) to the config.json fil
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzgxOTIyNjU1LC0xNDEwODgxNzY1LC0yMT
-MyMTA5NTY3LDE5MTc5MDY1OCwtMTk5NTM1NTM2OCw1MjMwNTY5
-ODQsMTU0OTIyOTc0M119
+eyJoaXN0b3J5IjpbMTYyNDMwMTIzMywtMTQxMDg4MTc2NSwtMj
+EzMjEwOTU2NywxOTE3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2
+OTg0LDE1NDkyMjk3NDNdfQ==
 -->
