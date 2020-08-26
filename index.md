@@ -2,6 +2,10 @@
 
 YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 
+## Installation
+
+Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
+
 ## Commands
 
 ### Generic Commands
@@ -134,11 +138,10 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 | -setdebug \<true/false\> | Enables / Disabled the debug mode of the bot. While oil debug mode every exception the bot encounters will be logged with a stack trace as a discord message |
 
 
-## Installation
 
-Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg4NjM2MDI5OCwtMTQxMDg4MTc2NSwtMj
+eyJoaXN0b3J5IjpbMTY2MjYxMDAzNiwtMTQxMDg4MTc2NSwtMj
 EzMjEwOTU2NywxOTE3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2
 OTg0LDE1NDkyMjk3NDNdfQ==
 -->
