@@ -137,11 +137,25 @@ Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more informa
 |-----|-----|
 | -setdebug \<true/false\> | Enables / Disabled the debug mode of the bot. While oil debug mode every exception the bot encounters will be logged with a stack trace as a discord message |
 
+### Queue Management 
+
+#### -savequeue
+
+| usage | description |
+|-----|-----|
+| -savequeue \<name\> | Safes the current queue to a local file for later use (for some reason sometimes it only saves up to 8 tracks / problem under investigation) |
+
+#### -loadqueue
+
+| usage | description |
+|-----|-----|
+| -loadqueue \<name\> | Loads a prev |
+
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY2MjYxMDAzNiwtMTQxMDg4MTc2NSwtMj
+eyJoaXN0b3J5IjpbMTA3NzU4MTM4NSwtMTQxMDg4MTc2NSwtMj
 EzMjEwOTU2NywxOTE3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2
 OTg0LDE1NDkyMjk3NDNdfQ==
 -->
