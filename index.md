@@ -119,12 +119,18 @@ YouTube, Vimeo, Twitch, Bandcamp, Soundcloud Equalizer, BassBoost
 |-----|-----|
 | -safe \<amount\> [tags] | Pulls SFW images from Safebooru. |
 
+### Bot settings 
+
+| usage | description |
+|-----|-----|
+| -setvc \<voice_channel_id\> | Sets the voice channel the bot shou |
+
 
 ## Installation
 
 Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more information!
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI0NDc3MTA5NywtMTQxMDg4MTc2NSwtMj
+eyJoaXN0b3J5IjpbMTE4NjIyNzY5MywtMTQxMDg4MTc2NSwtMj
 EzMjEwOTU2NywxOTE3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2
 OTg0LDE1NDkyMjk3NDNdfQ==
 -->
