@@ -184,6 +184,13 @@ To restrict commands add their names (without the prefix) to the config.json fil
 
 ### Miscellaneous commands
 
+#### -inspiro
+
+| usage | description |
+|-----|-----|
+| -inspiro | INSPIROBOT!!! |
+
+
 #### -setprefix
 
 | usage | description |
@@ -234,7 +241,7 @@ The image url must be a valid png and has Mime-Type: image/png
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk1NTUwNTE3NywtMTQxMDg4MTc2NSwtMj
-EzMjEwOTU2NywxOTE3OTA2NTgsLTE5OTUzNTUzNjgsNTIzMDU2
-OTg0LDE1NDkyMjk3NDNdfQ==
+eyJoaXN0b3J5IjpbMTMxMjgzOTY2LDE5NTU1MDUxNzcsLTE0MT
+A4ODE3NjUsLTIxMzIxMDk1NjcsMTkxNzkwNjU4LC0xOTk1MzU1
+MzY4LDUyMzA1Njk4NCwxNTQ5MjI5NzQzXX0=
 -->
