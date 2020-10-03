@@ -8,6 +8,7 @@ import de.bjm.momobot.music.MusicController;
 import de.bjm.momobot.utils.Hentai;
 import de.bjm.momobot.utils.MessageBuilder;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -260,6 +261,11 @@ public class Commands implements BotController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @BotCommandHandler
+    private void getInviteURL(Message message) {
+        message.getChannel().sendMessage(MessageBuilder.buildSuccess(message.getJDA().getInviteUrl(Permission.ADMINISTRATOR))).queue();
     }
 
     @BotCommandHandler (
