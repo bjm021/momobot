@@ -9,6 +9,11 @@ import de.bjm.momobot.utils.Hentai;
 import de.bjm.momobot.utils.MessageBuilder;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.awt.*;
 import java.io.IOException;
@@ -242,6 +247,22 @@ public class Commands implements BotController {
     }
 
     @BotCommandHandler (
+        name = "inspiro",
+        usage = "inspiro"
+    )
+    private void inspiro(Message message) {
+        try {
+            CloseableHttpClient client = HttpClientBuilder.create().build();
+            HttpGet get = new HttpGet("https://inspirobot.me/api?generate=true");
+            CloseableHttpResponse response = client.execute(get);
+            String url = IOUtils.toString(response.getEntity().getContent());
+            message.getChannel().sendMessage(url).queue();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @BotCommandHandler (
             name = "help",
             usage = "help"
     )
@@ -250,7 +271,7 @@ public class Commands implements BotController {
         if (prefix == null)
             prefix = "-";
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle("HELP");
+        eb.setTitle("Momobot HELP / NOW WITH INSPIROBOT ("+prefix+"inspiro)");
         eb.setColor(Color.BLUE);
         eb.setDescription("All Bot Commands, args in <arg> required | args in [arg] optional");
         eb.addField("", "Generic COMMANDS", false);
@@ -293,6 +314,7 @@ public class Commands implements BotController {
         eb.addField(prefix + "listadmins", "List all admins", true);
         eb.addField("Hint", "To restrict commands add their names (without the prefix) to the config.json file! After that only admins have permission to execute these commands!", false);
         eb.addField("", "Miscellaneous commands", false);
+        eb.addField(prefix + "inspiro", "INSPIROBOT!!!", true);
         eb.addField(prefix + "setprefix <prefixChar>", "sets the prefix of the bot! EFFECTIVE IMMEDIATELY", true);
         eb.addField(prefix + "copyright", "Prints Copyright Information", true);
         eb.addField(prefix + "license", "Prints License Information", true);
