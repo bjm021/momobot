@@ -3,16 +3,12 @@ package de.bjm.momobot;
 import de.bjm.momobot.file.Config;
 import de.bjm.momobot.file.QueueFile;
 import de.bjm.momobot.utils.Setup;
+import de.bjm.momobot.utils.TWOLogic;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Icon;
-import net.dv8tion.jda.api.managers.AccountManager;
-import net.dv8tion.jda.api.managers.Presence;
 
 import java.io.File;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Scanner;
 
 /**
@@ -29,7 +25,7 @@ public class Bootstrap {
     /**
      * The Version Identifier
      */
-    public static final String VERSION = "v1.9";
+    public static final String VERSION = "v2.0.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2 preRelease";
 
     /**
      * The active JDA connection to discord
@@ -70,6 +66,12 @@ public class Bootstrap {
         return queueFile;
     }
 
+    private static TWOLogic twoLogic;
+
+    public static TWOLogic getTwoLogic() {
+        return twoLogic;
+    }
+
     /**
      * Java main method
      * @param args          The args of the user
@@ -94,6 +96,7 @@ public class Bootstrap {
         }
 
         config = new Config();
+        twoLogic = new TWOLogic();
         queueFile = new QueueFile();
 
         String token = config.getValue(Config.ConfigValue.TOKEN);
@@ -101,6 +104,7 @@ public class Bootstrap {
 
         JDABuilder builder = JDABuilder.createDefault(token);
         builder.addEventListeners(new BotApplicationManager());
+        //builder.setActivity(Activity.playing(config.getValue(Config.ConfigValue.PREFIX) + "help | momobot.cf"));
         builder.setActivity(Activity.playing(config.getValue(Config.ConfigValue.PREFIX) + "help | momobot.cf"));
         jda = builder.build();
 

@@ -106,6 +106,8 @@ public class BotApplicationManager extends ListenerAdapter {
             return;
         }
 
+        Bootstrap.getTwoLogic().handleEvent(event);
+
         BotGuildContext guildContext = getContext(event.getGuild());
 
 

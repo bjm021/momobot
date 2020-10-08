@@ -37,3 +37,7 @@ out/*
 src/main/META-INF/
 /src/main/META-INF/*
 /src/main/META-INF/
+
+SuperGeheimerConfigFile2.json
+config.json
+queues.json
