@@ -289,7 +289,7 @@ public class Commands implements BotController {
         eb.addField(prefix + "clear", "Clears the queue", true);
         eb.addField(prefix + "forward <seconds>", "Move forward X seconds!", true);
         eb.addField(prefix + "back <seconds>", "Move backwards X seconds!", true);
-        eb.addField(prefix + "seek <millisecond>", "Jumps to position X milliseconds.!", true);
+        eb.addField(prefix + "seek <millisecond> / <seconds>", "Jumps to position X milliseconds.!", true);
         eb.addField("", "EQ COMMANDS", false);
         eb.addField(prefix + "eqstart", "Engages the Equalizer (auto when using eq commands)", true);
         eb.addField(prefix + "eqstop", "Disengages the Equalizer", true);

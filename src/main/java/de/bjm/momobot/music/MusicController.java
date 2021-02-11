@@ -274,9 +274,17 @@ public class MusicController implements BotController {
             name = "seek",
             usage = "seek <milliseconds>"
     )
-    private void seek(Message message, long position) {
-        forPlayingTrack(track -> track.setPosition(position));
-        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Jumped to " + position + "milliseconds!")).queue();
+    private void seek(Message message, double position) {
+        double pos;
+        if (message.getContentDisplay().contains(".")) {
+            pos = position*1000;
+        } else {
+            pos = position;
+        }
+
+        long finalPos = (long) pos;
+        forPlayingTrack(track -> track.setPosition(finalPos));
+        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Jumped to " + finalPos + " milliseconds!")).queue();
     }
 
     @BotCommandHandler(

@@ -104,16 +104,18 @@ public class TWOLogic {
         });
 
         System.out.println("sent guild: " + event.getGuild().getId());
-        System.out.println("active guild: " + activeGuilds.get(0));
-        activeGuilds.forEach(s -> {
-            if (event.getGuild().getId().equalsIgnoreCase(s)) {
-                if (sendTWO.get()) {
-                    String answerText = answers.get(ThreadLocalRandom.current().nextInt(0, answers.size()));
+        if (activeGuilds.size() > 0) {
+            System.out.println("active guild: " + activeGuilds.get(0));
+            activeGuilds.forEach(s -> {
+                if (event.getGuild().getId().equalsIgnoreCase(s)) {
+                    if (sendTWO.get()) {
+                        String answerText = answers.get(ThreadLocalRandom.current().nextInt(0, answers.size()));
 
 
-                    event.getChannel().sendMessage(answerText).queue();
+                        event.getChannel().sendMessage(answerText).queue();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }
