@@ -297,10 +297,10 @@ public class Commands implements BotController {
         eb.addField(prefix + "eqhighbass <value>", "Modify the high band bass", true);
         eb.addField(prefix + "bassboost", "BASSBOOST (EARRAPE!!!)", true);
         eb.addField(prefix + "eqlowbass <value>", "Modify the low band bass", true);
-        eb.addField("", "NSFW Commands", false);
-        eb.addField(prefix + "rule34 / " + prefix + "hentai <amount> [tags]", "Pulls Hentai images from Rule34", true);
-        eb.addField(prefix + "real <amount> [tags]", "Pulls Real images from Realbooru", true);
-        eb.addField(prefix + "safe <amount> [tags]", "Pulls SFW images from Safebooru", true);
+        eb.addField("", "Queue Management", false);
+        eb.addField(prefix + "savequeue <name>", "Saves the last 8 queue items in a file", true);
+        eb.addField(prefix + "listqueues", "List saved queues", true);
+        eb.addField(prefix + "loadqueue <name>", "Loads all track of a saved queue by name", true);
         eb.setAuthor("MomoBot " + Bootstrap.VERSION, "https://momobot.cf", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png");
         eb.setThumbnail("http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
         message.getChannel().sendMessage(eb.build()).queue();
@@ -310,10 +310,10 @@ public class Commands implements BotController {
         eb.addField("", "Bot Settings Commands", false);
         eb.addField(prefix + "setvc <channel_id>", "Sets the VoiceChannel the bot uses", true);
         eb.addField(prefix + "setdebug <true/false>", "Sets the DEBUG mode of the bot", true);
-        eb.addField("", "Queue Management", false);
-        eb.addField(prefix + "savequeue <name>", "Saves the last 8 queue items in a file", true);
-        eb.addField(prefix + "listqueues", "List saved queues", true);
-        eb.addField(prefix + "loadqueue <name>", "Loads all track of a saved queue by name", true);
+        //eb.addField("", "NSFW Commands", false);
+        //eb.addField(prefix + "rule34 / " + prefix + "hentai <amount> [tags]", "Pulls Hentai images from Rule34", true);
+        //eb.addField(prefix + "real <amount> [tags]", "Pulls Real images from Realbooru", true);
+        //eb.addField(prefix + "safe <amount> [tags]", "Pulls SFW images from Safebooru", true);
         eb.addField("", "Administrative commands", false);
         eb.addField(prefix + "addadmin <id>", "Promote a user to admin", true);
         eb.addField(prefix + "removeadmin <id>", "Demote a user from admin", true);
@@ -327,6 +327,8 @@ public class Commands implements BotController {
         eb.addField(prefix + "setaurl <url>", "Updates the bot's avatar. May be Rate limited (Don't use too often)", true);
         eb.addField(prefix + "setusername <username>", "Sets the bot's username", true);
         //eb.setAuthor("MomoBot " + Bootstrap.VERSION, "https://momobot.cf", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png");
+        eb.addField("", "Complete command refrence:", false);
+        eb.addField("https://bjm021.github.io/momobot/", "You can visit https://bjm021.github.io/momobot/ for a complete command refrence!", false);
         eb.setFooter("MomoBot " + Bootstrap.VERSION + " based on lavaplayer | by b.jm021", "http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
         message.getChannel().sendMessage(eb.build()).queue();
 
