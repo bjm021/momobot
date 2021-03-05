@@ -19,6 +19,19 @@ import java.util.Properties;
  * The Config class handles interactions with the config.json file on the fly!
  *
  * Each request for a config value reads the file so that changes can be applied on the fly and take effect without a restart.
+ *
+ *
+ *     Copyright (C) 2020-2021 BJM SoftwareWorks (Benjamin J. Meyer)
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
  */
 public class Config {
 
