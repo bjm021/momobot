@@ -103,6 +103,8 @@ public class MusicController implements BotController {
     )
     private void now(Message message, String identifier) {
         addTrack(message, identifier, true);
+        if (player.isPaused())
+            player.setPaused(false);
     }
 
     @BotCommandHandler
@@ -545,6 +547,20 @@ public class MusicController implements BotController {
     )
     private void getUrl(Message message) {
         geturi(message);
+    }
+
+    @BotCommandHandler(
+            name = "list",
+            usage = "list"
+    )
+    private void list(Message message) {
+        EmbedBuilder eb = new EmbedBuilder();
+        eb.setTitle("Current tracks in queue:");
+        eb.setColor(Color.CYAN);
+        scheduler.getQueue().forEach(audioTrack -> {
+            eb.addField("", audioTrack.getInfo().title, false);
+        });
+        message.getChannel().sendMessageEmbeds(eb.build()).queue();
     }
 
 
