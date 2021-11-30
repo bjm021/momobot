@@ -69,6 +69,7 @@ public class MusicController implements BotController {
     private final MessageDispatcher messageDispatcher;
     private final Guild guild;
     private final EqualizerFactory equalizer;
+    private int maxQueueSize;
 
     public static String latestURI;
     public static boolean repeat = false;
@@ -77,6 +78,9 @@ public class MusicController implements BotController {
         this.manager = manager.getPlayerManager();
         this.guild = guild;
         this.equalizer = new EqualizerFactory();
+        this.maxQueueSize = Bootstrap.getConfig().getMaxQueueSize();
+
+        System.out.println("[MomoBot] [MusicController] Initializing MusicController with queue limit: " + maxQueueSize);
 
         player = manager.getPlayerManager().createPlayer();
         guild.getAudioManager().setSendingHandler(new AudioPlayerSendHandler(player));
@@ -542,6 +546,24 @@ public class MusicController implements BotController {
     }
 
     @BotCommandHandler(
+            name = "setQueueSize",
+            usage = "setQueueSize <int>"
+    )
+    private void setQueueSize(Message message, int size) {
+        maxQueueSize = size;
+        Bootstrap.getConfig().setMaxQueueSize(size);
+        message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("Queue size set to " + size)).queue();
+    }
+
+    @BotCommandHandler(
+            name = "getQueueSize",
+            usage = "getQueueSize"
+    )
+    private void getQueueSize(Message message) {
+        message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("The current queue size (actual:config) is: " + maxQueueSize + " : " + Bootstrap.getConfig().getMaxQueueSize())).queue();
+    }
+
+    @BotCommandHandler(
             name = "geturl",
             usage = "geturl"
     )
@@ -554,13 +576,29 @@ public class MusicController implements BotController {
             usage = "list"
     )
     private void list(Message message) {
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle("Current tracks in queue:");
-        eb.setColor(Color.CYAN);
-        scheduler.getQueue().forEach(audioTrack -> {
-            eb.addField("", audioTrack.getInfo().title, false);
-        });
-        message.getChannel().sendMessageEmbeds(eb.build()).queue();
+
+        if (scheduler.getQueue().size() == 0) {
+            EmbedBuilder eb = new EmbedBuilder();
+            eb.setColor(Color.red);
+            eb.addField("Error", "The Queue is empty", false);
+            message.getChannel().sendMessageEmbeds(eb.build()).queue();
+            return;
+        }
+
+        int embedsToBuild = ((scheduler.getQueue().size()-1) / 25) + 1;
+        List<AudioTrack> tracks = new ArrayList<>(scheduler.getQueue());
+        List<MessageEmbed> output = new ArrayList<>();
+        for (int i = 0; i < embedsToBuild; i++) {
+            EmbedBuilder eb = new EmbedBuilder();
+            eb.setColor(Color.CYAN);
+            int c = 25*i;
+            for (int x = c; x < Math.min(25*(i+1), tracks.size()); x++) {
+                eb.addField("Track " + x+1, tracks.get(x).getInfo().title, false);
+            }
+            output.add(eb.build());
+        }
+
+        message.getChannel().sendMessageEmbeds(output).queue();
     }
 
 
@@ -630,6 +668,8 @@ public class MusicController implements BotController {
     private void addTrack(final Message message, final String identifier, final boolean now) {
         outputChannel.set((TextChannel) message.getChannel());
 
+        maxQueueSize = Bootstrap.getConfig().getMaxQueueSize();
+
         if (identifier.contains("http")) {
 
             manager.loadItemOrdered(this, identifier, new AudioLoadResultHandler() {
@@ -637,7 +677,12 @@ public class MusicController implements BotController {
                 public void trackLoaded(AudioTrack track) {
                     connectToFirstVoiceChannel(guild.getAudioManager());
 
-                    message.getChannel().sendMessage("Starting now: " + track.getInfo().title + " (length " + track.getDuration() + ")").queue();
+                    if (now) {
+                        message.getChannel().sendMessage("Starting now: " + track.getInfo().title + " (length " + track.getDuration() + ")").queue();
+                    } else {
+                        message.getChannel().sendMessage("Adding    : " + track.getInfo().title + " (length " + track.getDuration() + ")").queue();
+                    }
+
 
                     if (now) {
                         scheduler.playNow(track, true);
@@ -650,6 +695,7 @@ public class MusicController implements BotController {
 
                 @Override
                 public void playlistLoaded(AudioPlaylist playlist) {
+                    System.out.println("Loaded Playlist after get size: " + playlist.getTracks().size());
                     List<AudioTrack> tracks = playlist.getTracks();
                     message.getChannel().sendMessage("Loaded playlist: " + playlist.getName() + " (" + tracks.size() + ")").queue();
 
@@ -672,7 +718,7 @@ public class MusicController implements BotController {
 
                     latestURI = selected.getInfo().uri;
 
-                    for (int i = 0; i < Math.min(10, playlist.getTracks().size()); i++) {
+                    for (int i = 0; i < Math.min(maxQueueSize, playlist.getTracks().size()); i++) {
                         if (tracks.get(i) != selected) {
                             scheduler.addToQueue(tracks.get(i));
                         }
@@ -737,7 +783,7 @@ public class MusicController implements BotController {
                             scheduler.addToQueue(selected);
                         }
 
-                        for (int i = 0; i < Math.min(10, playlist.getTracks().size()); i++) {
+                        for (int i = 0; i < Math.min(maxQueueSize, playlist.getTracks().size()); i++) {
                             if (tracks.get(i) != selected) {
                                 scheduler.addToQueue(tracks.get(i));
                             }
@@ -775,9 +821,15 @@ public class MusicController implements BotController {
                     @Override
                     public void playlistLoaded(AudioPlaylist playlist) {
                         List<AudioTrack> tracks = playlist.getTracks();
-                        message.getChannel().sendMessage("Loaded playlist: " + playlist.getName() + " (" + tracks.size() + ")").queue();
+
+                        if (!playlist.isSearchResult()) {
+                            message.getChannel().sendMessage("Loaded playlist: " + playlist.getName() + " (" + tracks.size() + ")").queue();
+                        } else {
+                            message.getChannel().sendMessage("Selected first track of " + playlist.getName()).queue();
+                        }
 
                         connectToFirstVoiceChannel(guild.getAudioManager());
+
 
                         AudioTrack selected = playlist.getSelectedTrack();
 
@@ -794,9 +846,11 @@ public class MusicController implements BotController {
                             scheduler.addToQueue(selected);
                         }
 
-                        for (int i = 0; i < Math.min(10, playlist.getTracks().size()); i++) {
-                            if (tracks.get(i) != selected) {
-                                scheduler.addToQueue(tracks.get(i));
+                        if (!playlist.isSearchResult()) {
+                            for (int i = 0; i < Math.min(maxQueueSize, playlist.getTracks().size()); i++) {
+                                if (tracks.get(i) != selected) {
+                                    scheduler.addToQueue(tracks.get(i));
+                                }
                             }
                         }
                     }

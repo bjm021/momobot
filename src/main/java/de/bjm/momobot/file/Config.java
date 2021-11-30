@@ -39,7 +39,7 @@ public class Config {
      * Easy handling of config key names! Each enum presents a key name in the root {@link JSONObject} of the config file.
      */
     public enum ConfigValue {
-        DEBUG("debug"), TOKEN("token"), PREFIX("prefix");
+        DEBUG("debug"), TOKEN("token"), PREFIX("prefix"), MAX_QUEUE_SIZE("maxQueueSize"), ENABLE_UNSAFE_PLAYLISTS("enable-unsafe-playlists");
 
         private String id;
 
@@ -70,6 +70,8 @@ public class Config {
                 root.put("token", "TOKEN-HERE");
                 root.put("debug", false);
                 root.put("prefix", "-");
+                root.put("maxQueueSize", 10);
+                root.put("enable-unsafe-playlists", "false");
                 JSONArray voiceChannels = new JSONArray();
                 root.put("voice-channels", voiceChannels);
                 JSONArray admins = new JSONArray();
@@ -260,6 +262,19 @@ public class Config {
         }
     }
 
+    public int getMaxQueueSize() {
+        return Integer.parseInt(getValue(ConfigValue.MAX_QUEUE_SIZE));
+    }
+
+    public void setMaxQueueSize(int size) {
+        try {
+            JSONObject root = readJSONFile();
+            root.put("maxQueueSize", size);
+            writeJSONFile(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 
