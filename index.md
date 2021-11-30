@@ -139,6 +139,25 @@ Please visit our [wiki](https://github.com/bjm021/momobot/wiki) for more informa
 
 ### Queue Management 
 
+#### -list
+
+| usage | description |
+|-----|-----|
+| -list | Lists all tracks in the queue |
+
+#### -setQueueSize
+
+| usage | description |
+|-----|-----|
+| -setQueueSize \<size\> | Sets the queue size limit |
+
+#### -getQueueSize
+
+| usage | description |
+|-----|-----|
+| -getQueueSize | Gets the queue size limit |
+
+
 #### -savequeue
 
 | usage | description |
@@ -213,7 +232,6 @@ The image url must be a valid png and has Mime-Type: image/png
 | usage | description |
 |-----|-----|
 | -setusername \<username\> | Changes the bot's account name |
-
 
 #### -copyright
 
