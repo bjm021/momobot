@@ -593,7 +593,7 @@ public class MusicController implements BotController {
             eb.setColor(Color.CYAN);
             int c = 25*i;
             for (int x = c; x < Math.min(25*(i+1), tracks.size()); x++) {
-                eb.addField("Track " + x+1, tracks.get(x).getInfo().title, false);
+                eb.addField("Track " + (x+1), tracks.get(x).getInfo().title, false);
             }
             output.add(eb.build());
         }
