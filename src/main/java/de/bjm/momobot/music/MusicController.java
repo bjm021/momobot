@@ -598,7 +598,9 @@ public class MusicController implements BotController {
             output.add(eb.build());
         }
 
-        message.getChannel().sendMessageEmbeds(output).queue();
+        output.forEach(messageEmbed -> {
+            message.getChannel().sendMessageEmbeds(messageEmbed).queue();
+        });
     }
 
 
