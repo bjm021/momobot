@@ -162,27 +162,27 @@ public class BotApplicationManager extends ListenerAdapter {
         controllerManager.dispatchMessage(guildContext.controllers, prefix, event.getMessage(), new BotCommandMappingHandler() {
             @Override
             public void commandNotFound(Message message, String name) {
-                event.getTextChannel().sendMessage(MessageBuilder.buildError("This command does not exist", null)).queue();
+                event.getTextChannel().sendMessageEmbeds(MessageBuilder.buildError("This command does not exist", null)).queue();
             }
 
             @Override
             public void commandWrongParameterCount(Message message, String name, String usage, int given, int required) {
-                event.getTextChannel().sendMessage(MessageBuilder.buildError("Wrong argument count for command. Usage: " + Bootstrap.getConfig().getValue(Config.ConfigValue.PREFIX) + usage + " ", null)).queue();
+                event.getTextChannel().sendMessageEmbeds(MessageBuilder.buildError("Wrong argument count for command. Usage: " + Bootstrap.getConfig().getValue(Config.ConfigValue.PREFIX) + usage + " ", null)).queue();
             }
 
             @Override
             public void commandWrongParameterType(Message message, String name, String usage, int index, String value, Class<?> expectedType) {
-                event.getTextChannel().sendMessage(MessageBuilder.buildError("Wrong argument type for command (See -help for usage)", null)).queue();
+                event.getTextChannel().sendMessageEmbeds(MessageBuilder.buildError("Wrong argument type for command (See -help for usage)", null)).queue();
             }
 
             @Override
             public void commandRestricted(Message message, String name) {
-                event.getTextChannel().sendMessage(MessageBuilder.buildError("Command not permitted", null)).queue();
+                event.getTextChannel().sendMessageEmbeds(MessageBuilder.buildError("Command not permitted", null)).queue();
             }
 
             @Override
             public void commandException(Message message, String name, Throwable throwable) {
-                event.getTextChannel().sendMessage(MessageBuilder.buildError("Command threw an exception", new Exception(throwable))).queue();
+                event.getTextChannel().sendMessageEmbeds(MessageBuilder.buildError("Command threw an exception", new Exception(throwable))).queue();
 
                 log.error("Command with content {} threw an exception.", message.getContentDisplay(), throwable);
             }

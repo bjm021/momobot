@@ -55,10 +55,10 @@ public class Hentai {
      */
     public static void hentai(sites site, List<String> tags, int limit, MessageChannel channel) {
         if (!((TextChannel) channel).isNSFW()) {
-            channel.sendMessage(MessageBuilder.buildError("Only ever do this in a NSFW channel!", null)).queue();
+            channel.sendMessageEmbeds(MessageBuilder.buildError("Only ever do this in a NSFW channel!", null)).queue();
             return;
         }
-        channel.sendMessage(MessageBuilder.buildSuccess("Trying to send " + limit + " images with tags: " + String.join(", ", tags))).queue();
+        channel.sendMessageEmbeds(MessageBuilder.buildSuccess("Trying to send " + limit + " images with tags: " + String.join(", ", tags))).queue();
         CloseableHttpClient client= HttpClientBuilder.create().build();
         StringBuilder sb = new StringBuilder();
 
@@ -132,7 +132,7 @@ public class Hentai {
             }
 
             if (postList.size() == 0) {
-                channel.sendMessage(MessageBuilder.buildError("No images found by the given tags", null)).queue();
+                channel.sendMessageEmbeds(MessageBuilder.buildError("No images found by the given tags", null)).queue();
             }
 
             for (int i = 0; i < limit; i++) {

@@ -210,7 +210,7 @@ public class MusicController implements BotController {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(Color.RED);
         eb.setDescription("ENGAGING BASSBOOST! PREPARE FOR EARRAPE!!!");
-        message.getChannel().sendMessage(eb.build()).queue();
+        message.getChannel().sendMessageEmbeds(eb.build()).queue();
         player.setFilterFactory(equalizer);
         for (int i = 0; i < BASS_BOOST.length; i++) {
             equalizer.setGain(i, BASS_BOOST[i] + 2);
@@ -253,7 +253,7 @@ public class MusicController implements BotController {
     )
     private void forward(Message message, int duration) {
         forPlayingTrack(track -> track.setPosition(track.getPosition() + duration * 1000));
-        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Forward " + duration + "seconds!")).queue();
+        message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("Forward " + duration + "seconds!")).queue();
     }
 
     @BotCommandHandler(
@@ -262,7 +262,7 @@ public class MusicController implements BotController {
     )
     private void back(Message message, int duration) {
         forPlayingTrack(track -> track.setPosition(Math.max(0, track.getPosition() - duration * 1000)));
-        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Backwards " + duration + "seconds!")).queue();
+        message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("Backwards " + duration + "seconds!")).queue();
     }
 
     @BotCommandHandler(
@@ -303,7 +303,7 @@ public class MusicController implements BotController {
 
         long finalPos = (long) pos;
         forPlayingTrack(track -> track.setPosition(finalPos));
-        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Jumped to " + finalPos + " milliseconds!")).queue();
+        message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("Jumped to " + finalPos + " milliseconds!")).queue();
     }
 
     @BotCommandHandler(
@@ -329,7 +329,7 @@ public class MusicController implements BotController {
             usage = "version"
     )
     private void version(Message message) {
-        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Running momobot " + Bootstrap.VERSION + " (using PlayerLibrary " + PlayerLibrary.VERSION + ")")).queue();
+        message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("Running momobot " + Bootstrap.VERSION + " (using PlayerLibrary " + PlayerLibrary.VERSION + ")")).queue();
     }
 
     @BotCommandHandler
@@ -387,13 +387,13 @@ public class MusicController implements BotController {
         try {
             VoiceChannel vc = message.getGuild().getVoiceChannelById(id);
             Bootstrap.getConfig().setVoiceChannelToUse(message.getGuild(), vc.getId());
-            message.getChannel().sendMessage(MessageBuilder.buildSuccess("Active Bot Channel for Guild " + message.getGuild().getName() + " now set to " + vc.getName() + "#" + vc.getId())).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("Active Bot Channel for Guild " + message.getGuild().getName() + " now set to " + vc.getName() + "#" + vc.getId())).queue();
         } catch (NumberFormatException e) {
-            message.getChannel().sendMessage(MessageBuilder.buildError("Please enter a valid channel id! (NUMERIC)", e)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("Please enter a valid channel id! (NUMERIC)", e)).queue();
         } catch (NullPointerException e) {
-            message.getChannel().sendMessage(MessageBuilder.buildError("No Voice Channel found by that id!", e)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("No Voice Channel found by that id!", e)).queue();
         } catch (Exception e) {
-            message.getChannel().sendMessage(MessageBuilder.buildError("Something went wrong! (check your id)", e)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("Something went wrong! (check your id)", e)).queue();
         }
     }
 
@@ -408,9 +408,9 @@ public class MusicController implements BotController {
             EmbedBuilder eb = new EmbedBuilder();
             eb.setDescription("List of all Queues saved in save-file");
             queues.forEach(s -> eb.addField("", s, true));
-            message.getChannel().sendMessage(eb.build()).queue();
+            message.getChannel().sendMessageEmbeds(eb.build()).queue();
         } else {
-            message.getChannel().sendMessage(MessageBuilder.buildError("Queues save-File may be empty", null)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("Queues save-File may be empty", null)).queue();
         }
     }
 
@@ -424,13 +424,13 @@ public class MusicController implements BotController {
         int result = Bootstrap.getQueueFile().addQueueToFile(name, scheduler.getQueue());
         switch (result) {
             case 0:
-                message.getChannel().sendMessage(MessageBuilder.buildSuccess("Successfully saved queue to file")).queue();
+                message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("Successfully saved queue to file")).queue();
                 break;
             case 1:
-                message.getChannel().sendMessage(MessageBuilder.buildError("Queue by this name already exists in save file", null)).queue();
+                message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("Queue by this name already exists in save file", null)).queue();
                 break;
             case -1:
-                message.getChannel().sendMessage(MessageBuilder.buildError("Something went wrong!", Bootstrap.getQueueFile().getLatestException())).queue();
+                message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("Something went wrong!", Bootstrap.getQueueFile().getLatestException())).queue();
                 break;
         }
     }
@@ -443,7 +443,7 @@ public class MusicController implements BotController {
         List<String> items = Bootstrap.getQueueFile().getQueueItems(name);
 
         if (items == null) {
-            message.getChannel().sendMessage(MessageBuilder.buildError("Either a saved queue ba that name does not exist or it has no entries", null)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("Either a saved queue ba that name does not exist or it has no entries", null)).queue();
             return;
         }
 
@@ -452,7 +452,7 @@ public class MusicController implements BotController {
         for (String item : items) {
             addTrack(message, item, false);
         }
-        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Loaded queue successfully")).queue();
+        message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("Loaded queue successfully")).queue();
     }
 
     @BotCommandHandler(
@@ -462,7 +462,7 @@ public class MusicController implements BotController {
     private void getinviteurl(Message message) {
         String id = message.getJDA().getSelfUser().getId();
         String url = "https://discord.com/api/oauth2/authorize?client_id=" + id + "&permissions=8&scope=bot";
-        message.getChannel().sendMessage(MessageBuilder.buildSuccess("The url to invote this bot is: " + url)).queue();
+        message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("The url to invote this bot is: " + url)).queue();
     }
 
     @BotCommandHandler(
@@ -472,7 +472,7 @@ public class MusicController implements BotController {
     private void repeattrack(Message message) {
 
         if (player.getPlayingTrack() == null) {
-            message.getChannel().sendMessage(MessageBuilder.buildError("There is currently no track playing", null)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("There is currently no track playing", null)).queue();
             return;
         }
 
@@ -538,7 +538,7 @@ public class MusicController implements BotController {
     )
     private void geturi(Message message) {
         if (player.getPlayingTrack() == null) {
-            message.getChannel().sendMessage(MessageBuilder.buildError("There is currently no track playing", null)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("There is currently no track playing", null)).queue();
             return;
         }
 
@@ -881,7 +881,7 @@ public class MusicController implements BotController {
     }
 
     private static void connectToFirstVoiceChannel(AudioManager audioManager) {
-        if (!audioManager.isConnected() && !audioManager.isAttemptingToConnect()) {
+        if (!audioManager.isConnected()) {
             if (Bootstrap.getConfig().getVoiceChannelToUse(audioManager.getGuild()) != null) {
                 audioManager.openAudioConnection(Bootstrap.getConfig().getVoiceChannelToUse(audioManager.getGuild()));
             } else {

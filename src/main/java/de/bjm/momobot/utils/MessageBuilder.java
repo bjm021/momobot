@@ -36,7 +36,7 @@ public class MessageBuilder {
     }
 
     public static void ioError(Exception e, MessageChannel channel) {
-        channel.sendMessage(buildError("An IO error ocurred while reading a file", e)).queue();
+        channel.sendMessageEmbeds(buildError("An IO error ocurred while reading a file", e)).queue();
     }
 
     public static MessageEmbed buildMessage(String msg, Color color) {

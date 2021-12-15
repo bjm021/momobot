@@ -67,7 +67,7 @@ public class Commands implements BotController {
     private void setPrefix(Message message, String prefix) {
         Bootstrap.getConfig().setValue(Config.ConfigValue.PREFIX, prefix);
         message.getJDA().getPresence().setActivity(Activity.playing(Bootstrap.getConfig().getValue(Config.ConfigValue.PREFIX) + "help | momobot.cf"));
-        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Prefix set to " + prefix + "! EFFECTIVE IMMEDIATELY")).queue();
+        message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("Prefix set to " + prefix + "! EFFECTIVE IMMEDIATELY")).queue();
     }
 
     @BotCommandHandler (
@@ -78,9 +78,9 @@ public class Commands implements BotController {
         System.out.println(id);
         User user = message.getJDA().getUserById(id);
         if (user != null) {
-            message.getChannel().sendMessage(MessageBuilder.buildSuccess("AvatarUrl of " + user.getName() + " is: " + user.getAvatarUrl())).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("AvatarUrl of " + user.getName() + " is: " + user.getAvatarUrl())).queue();
         } else {
-            message.getChannel().sendMessage(MessageBuilder.buildError("No user by that id!", null)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("No user by that id!", null)).queue();
         }
     }
 
@@ -94,20 +94,20 @@ public class Commands implements BotController {
             URLConnection connection = test.openConnection();
             connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
             if (connection.getHeaderField("Content-Type").equalsIgnoreCase("image/png")) {
-                message.getChannel().sendMessage(MessageBuilder.buildMessage("Attempting to update the Avatar...", Color.CYAN)).queue();
+                message.getChannel().sendMessageEmbeds(MessageBuilder.buildMessage("Attempting to update the Avatar...", Color.CYAN)).queue();
                 message.getJDA().getSelfUser().getManager().setAvatar(Icon.from(connection.getInputStream())).complete();
-                message.getChannel().sendMessage(MessageBuilder.buildSuccess("Successfully updated the Avatar image! (It might take a while to update to your discord. Try pressing on the bot profile)")).queue();
+                message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("Successfully updated the Avatar image! (It might take a while to update to your discord. Try pressing on the bot profile)")).queue();
             } else {
-                message.getChannel().sendMessage(MessageBuilder.buildError("The Server said that your image is not a png!!! But it needs to be! (Server returned MIME type: " + connection.getHeaderField("Content-Type") + " but needs to be image/png)", null)).queue();
+                message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("The Server said that your image is not a png!!! But it needs to be! (Server returned MIME type: " + connection.getHeaderField("Content-Type") + " but needs to be image/png)", null)).queue();
             }
         } catch (MalformedURLException e) {
-            message.getChannel().sendMessage(MessageBuilder.buildError("This is a malformed URL/URI", null)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("This is a malformed URL/URI", null)).queue();
             return;
         } catch (IOException e) {
-            message.getChannel().sendMessage(MessageBuilder.buildError("Something went wrong while getting your URL/URI", e)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("Something went wrong while getting your URL/URI", e)).queue();
         } catch (NullPointerException e) {
             //e.printStackTrace();
-            message.getChannel().sendMessage(MessageBuilder.buildError("Seems like your URL/URI is not reachable", null)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("Seems like your URL/URI is not reachable", null)).queue();
         }
 
     }
@@ -117,13 +117,13 @@ public class Commands implements BotController {
             usage = "copyright"
     )
     private void copyright(Message message) {
-        message.getChannel().sendMessage(MessageBuilder.buildMessage("Copyright (C) 2019-2020 Benjamin J. Meyer / BJM Development", Color.GREEN)).queue();
+        message.getChannel().sendMessageEmbeds(MessageBuilder.buildMessage("Copyright (C) 2019-2020 Benjamin J. Meyer / BJM Development", Color.GREEN)).queue();
     }
 
     @BotCommandHandler
     private void osInfo(Message message) {
         MessageChannel channel = message.getChannel();
-        channel.sendMessage(MessageBuilder.buildSuccess("Running on: " + System.getProperty("os.name") + " "
+        channel.sendMessageEmbeds(MessageBuilder.buildSuccess("Running on: " + System.getProperty("os.name") + " "
                 + System.getProperty("os.arch") + " "
                 + System.getProperty("os.version") + " with Java " + System.getProperty("java.version"))).queue();
     }
@@ -141,7 +141,7 @@ public class Commands implements BotController {
             Bootstrap.getConfig().getAdminList().forEach(user -> {
                 eb.addField(user.getId(), user.getName(), false);
             });
-            message.getChannel().sendMessage(eb.build()).queue();
+            message.getChannel().sendMessageEmbeds(eb.build()).queue();
         } catch (IOException e) {
             e.printStackTrace();
             MessageBuilder.ioError(e, message.getChannel());
@@ -159,16 +159,16 @@ public class Commands implements BotController {
             try {
                 boolean result = Bootstrap.getConfig().addAdmin(user);
                 if (result) {
-                    message.getChannel().sendMessage(MessageBuilder.buildSuccess("Successfully promoted " + user.getName() + " to admin")).queue();
+                    message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("Successfully promoted " + user.getName() + " to admin")).queue();
                 } else {
-                    message.getChannel().sendMessage(MessageBuilder.buildError( user.getName() + " is already a admin!", null)).queue();
+                    message.getChannel().sendMessageEmbeds(MessageBuilder.buildError( user.getName() + " is already a admin!", null)).queue();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
                 MessageBuilder.ioError(e, message.getChannel());
             }
         } else {
-            message.getChannel().sendMessage(MessageBuilder.buildError("There is no user by that id", null)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("There is no user by that id", null)).queue();
         }
     }
 
@@ -179,7 +179,7 @@ public class Commands implements BotController {
     private void setdebug(Message message, String bool) {
         boolean val = Boolean.parseBoolean(bool);
         Bootstrap.getConfig().setValue(Config.ConfigValue.DEBUG, Boolean.toString(val));
-        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Successfully set DEBUG mode to " + val)).queue();
+        message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("Successfully set DEBUG mode to " + val)).queue();
     }
 
     @BotCommandHandler (
@@ -193,7 +193,7 @@ public class Commands implements BotController {
             java.util.List<String> tagsList = new ArrayList<>(Arrays.asList(tagsSplit));
             Hentai.hentai(Hentai.sites.RULE_34, tagsList, amount, message.getChannel());
         } else {
-            message.getChannel().sendMessage(MessageBuilder.buildError("Only ever do this in a NSFW channel!", null)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("Only ever do this in a NSFW channel!", null)).queue();
         }
     }
 
@@ -217,7 +217,7 @@ public class Commands implements BotController {
             java.util.List<String> tagsList = new ArrayList<>(Arrays.asList(tagsSplit));
             Hentai.hentai(Hentai.sites.REALBOORU, tagsList, amount, message.getChannel());
         } else {
-            message.getChannel().sendMessage(MessageBuilder.buildError("Only ever do this in a NSFW channel!", null)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("Only ever do this in a NSFW channel!", null)).queue();
         }
     }
 
@@ -232,7 +232,7 @@ public class Commands implements BotController {
             List<String> tagsList = new ArrayList<>(Arrays.asList(tagsSplit));
             Hentai.hentai(Hentai.sites.SAFEBOORU, tagsList, amount, message.getChannel());
         } else {
-            message.getChannel().sendMessage(MessageBuilder.buildError("Only ever do this in a NSFW channel!", null)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("Only ever do this in a NSFW channel!", null)).queue();
         }
     }
 
@@ -246,16 +246,16 @@ public class Commands implements BotController {
             try {
                 boolean result = Bootstrap.getConfig().removeAdmin(user);
                 if (result) {
-                    message.getChannel().sendMessage(MessageBuilder.buildSuccess("Successfully demoted " + user.getName())).queue();
+                    message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("Successfully demoted " + user.getName())).queue();
                 } else {
-                    message.getChannel().sendMessage(MessageBuilder.buildError( user.getName() + " is not even a admin!", null)).queue();
+                    message.getChannel().sendMessageEmbeds(MessageBuilder.buildError( user.getName() + " is not even a admin!", null)).queue();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
                 MessageBuilder.ioError(e, message.getChannel());
             }
         } else {
-            message.getChannel().sendMessage(MessageBuilder.buildError("There is no user by that id", null)).queue();
+            message.getChannel().sendMessageEmbeds(MessageBuilder.buildError("There is no user by that id", null)).queue();
         }
     }
 
@@ -277,7 +277,7 @@ public class Commands implements BotController {
 
     @BotCommandHandler
     private void getInviteURL(Message message) {
-        message.getChannel().sendMessage(MessageBuilder.buildSuccess(message.getJDA().getInviteUrl(Permission.ADMINISTRATOR))).queue();
+        message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess(message.getJDA().getInviteUrl(Permission.ADMINISTRATOR))).queue();
     }
 
     @BotCommandHandler (
@@ -315,7 +315,7 @@ public class Commands implements BotController {
         eb.addField(prefix + "loadqueue <name>", "Loads all track of a saved queue by name", true);
         eb.setAuthor("MomoBot " + Bootstrap.VERSION, "https://momobot.cf", "https://cdn.discordapp.com/avatars/687607623650246677/b3676d9410b5af9a4527f216265b7441.png");
         eb.setThumbnail("http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
-        message.getChannel().sendMessage(eb.build()).queue();
+        message.getChannel().sendMessageEmbeds(eb.build()).queue();
 
         eb = new EmbedBuilder();
         eb.setColor(Color.BLUE);
@@ -342,7 +342,7 @@ public class Commands implements BotController {
         eb.addField("", "Complete command refrence:", false);
         eb.addField("https://bjm021.github.io/momobot/", "You can visit https://bjm021.github.io/momobot/ for a complete command refrence!", false);
         eb.setFooter("MomoBot " + Bootstrap.VERSION + " based on lavaplayer | by b.jm021", "http://cdn.bjm.hesteig.com/BJM_Logo_white.png");
-        message.getChannel().sendMessage(eb.build()).queue();
+        message.getChannel().sendMessageEmbeds(eb.build()).queue();
 
 
 
@@ -355,9 +355,9 @@ public class Commands implements BotController {
             usage = "setusername <name>"
     )
     public void setUsername(Message message, String name) {
-        message.getChannel().sendMessage(MessageBuilder.buildMessage("Attempting to update username...", Color.CYAN)).queue();
+        message.getChannel().sendMessageEmbeds(MessageBuilder.buildMessage("Attempting to update username...", Color.CYAN)).queue();
         message.getJDA().getSelfUser().getManager().setName(name).complete();
-        message.getChannel().sendMessage(MessageBuilder.buildSuccess("Successfully updated the bot name! (It might take a while to update to your discord. Try pressing on the bot profile)")).queue();
+        message.getChannel().sendMessageEmbeds(MessageBuilder.buildSuccess("Successfully updated the bot name! (It might take a while to update to your discord. Try pressing on the bot profile)")).queue();
     }
 
 
