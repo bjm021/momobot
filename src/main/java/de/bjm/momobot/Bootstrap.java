@@ -43,7 +43,7 @@ public class Bootstrap {
     /**
      * The Version Identifier
      */
-    public static final String VERSION = "v2.1";
+    public static final String VERSION = "v2.2";
 
     /**
      * The active JDA connection to discord
