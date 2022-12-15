@@ -7,6 +7,7 @@ import de.bjm.momobot.utils.TWOLogic;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import java.io.File;
 import java.util.Scanner;
@@ -123,6 +124,7 @@ public class Bootstrap {
         builder.addEventListeners(new BotApplicationManager());
         //builder.setActivity(Activity.playing(config.getValue(Config.ConfigValue.PREFIX) + "help | momobot.cf"));
         builder.setActivity(Activity.playing(config.getValue(Config.ConfigValue.PREFIX) + "help | momobot.cf"));
+        builder.enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_VOICE_STATES);
         jda = builder.build();
 
         System.setProperty("http.agent", "");

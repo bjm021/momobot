@@ -3,8 +3,8 @@ package de.bjm.momobot.utils;
 import de.bjm.momobot.Bootstrap;
 import de.bjm.momobot.file.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 
 import java.awt.*;
 import java.util.Arrays;

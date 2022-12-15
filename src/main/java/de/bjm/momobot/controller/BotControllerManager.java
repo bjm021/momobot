@@ -3,6 +3,7 @@ package de.bjm.momobot.controller;
 import de.bjm.momobot.Bootstrap;
 import de.bjm.momobot.BotApplicationManager;
 import de.bjm.momobot.BotGuildContext;
+import de.bjm.momobot.file.Config;
 import de.bjm.momobot.utils.MessageBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
@@ -74,6 +75,8 @@ public class BotControllerManager {
 
     public void dispatchMessage(Map<Class<? extends BotController>, BotController> instances, String prefix, Message message,
                                 BotCommandMappingHandler handler) {
+
+        System.out.println("Dispatching message: " + message.getContentDisplay());
 
         String content = message.getContentDisplay().trim();
         String[] separated = content.split("\\s+", 2);

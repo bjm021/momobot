@@ -10,6 +10,8 @@ import de.bjm.momobot.utils.MessageBuilder;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -187,7 +189,7 @@ public class Commands implements BotController {
             usage = "rule34 <amount> [tag tag tag...]"
     )
     private void rule34(Message message, int amount, String tags) {
-        if (message.getTextChannel().isNSFW()) {
+        if (((TextChannel) message.getChannel()).isNSFW()) {
             System.out.println("HENTAI " + tags);
             String[] tagsSplit = tags.split(" ");
             java.util.List<String> tagsList = new ArrayList<>(Arrays.asList(tagsSplit));
@@ -211,7 +213,7 @@ public class Commands implements BotController {
             usage = "real <amount> [tag tag tag...]"
     )
     private void real(Message message, int amount, String tags) {
-        if (message.getTextChannel().isNSFW()) {
+        if (((TextChannel) message.getChannel()).isNSFW()) {
             System.out.println("HENTAI " + tags);
             String[] tagsSplit = tags.split(" ");
             java.util.List<String> tagsList = new ArrayList<>(Arrays.asList(tagsSplit));
@@ -226,7 +228,7 @@ public class Commands implements BotController {
             usage = "safe <amount> [tag tag tag...]"
     )
     private void safe(Message message, int amount, String tags) {
-        if (message.getTextChannel().isNSFW()) {
+        if (((TextChannel) message.getChannel()).isNSFW()) {
             System.out.println("HENTAI " + tags);
             String[] tagsSplit = tags.split(" ");
             List<String> tagsList = new ArrayList<>(Arrays.asList(tagsSplit));

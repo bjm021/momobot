@@ -19,10 +19,10 @@ import de.bjm.momobot.music.MusicController;
 import de.bjm.momobot.sourceManager.youtube.CustomYoutubeAudioSourceManager;
 import de.bjm.momobot.utils.Hentai;
 import de.bjm.momobot.utils.MessageBuilder;
-import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -113,6 +113,9 @@ public class BotApplicationManager extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(final MessageReceivedEvent event) {
+
+        System.out.println("Message received " + event.getMessage().getContentRaw());
+
         Member member = event.getMember();
 
         if (!event.isFromType(ChannelType.TEXT) || member == null || member.getUser().isBot()) {
@@ -135,21 +138,21 @@ public class BotApplicationManager extends ListenerAdapter {
                     int c = Integer.parseInt(event.getMessage().getContentRaw().split(" ")[1]);
                     Hentai.hentai(Hentai.sites.RULE_34, new ArrayList<>(), c, event.getChannel());
                 } catch (NumberFormatException e) {
-                    event.getTextChannel().sendMessage("The first argument is not a number!").queue();
+                    event.getChannel().sendMessage("The first argument is not a number!").queue();
                 }
             } else if (event.getMessage().getContentRaw().startsWith("-safe")) {
                 try {
                     int c = Integer.parseInt(event.getMessage().getContentRaw().split(" ")[1]);
                     Hentai.hentai(Hentai.sites.SAFEBOORU, new ArrayList<>(), c, event.getChannel());
                 } catch (NumberFormatException e) {
-                    event.getTextChannel().sendMessage("The first argument is not a number!").queue();
+                    event.getChannel().sendMessage("The first argument is not a number!").queue();
                 }
             } else if (event.getMessage().getContentRaw().startsWith("-real")) {
                 try {
                     int c = Integer.parseInt(event.getMessage().getContentRaw().split(" ")[1]);
                     Hentai.hentai(Hentai.sites.REALBOORU, new ArrayList<>(), c, event.getChannel());
                 } catch (NumberFormatException e) {
-                    event.getTextChannel().sendMessage("The first argument is not a number!").queue();
+                    event.getChannel().sendMessage("The first argument is not a number!").queue();
                 }
             }
 
@@ -162,27 +165,27 @@ public class BotApplicationManager extends ListenerAdapter {
         controllerManager.dispatchMessage(guildContext.controllers, prefix, event.getMessage(), new BotCommandMappingHandler() {
             @Override
             public void commandNotFound(Message message, String name) {
-                event.getTextChannel().sendMessageEmbeds(MessageBuilder.buildError("This command does not exist", null)).queue();
+                event.getChannel().sendMessageEmbeds(MessageBuilder.buildError("This command does not exist", null)).queue();
             }
 
             @Override
             public void commandWrongParameterCount(Message message, String name, String usage, int given, int required) {
-                event.getTextChannel().sendMessageEmbeds(MessageBuilder.buildError("Wrong argument count for command. Usage: " + Bootstrap.getConfig().getValue(Config.ConfigValue.PREFIX) + usage + " ", null)).queue();
+                event.getChannel().sendMessageEmbeds(MessageBuilder.buildError("Wrong argument count for command. Usage: " + Bootstrap.getConfig().getValue(Config.ConfigValue.PREFIX) + usage + " ", null)).queue();
             }
 
             @Override
             public void commandWrongParameterType(Message message, String name, String usage, int index, String value, Class<?> expectedType) {
-                event.getTextChannel().sendMessageEmbeds(MessageBuilder.buildError("Wrong argument type for command (See -help for usage)", null)).queue();
+                event.getChannel().sendMessageEmbeds(MessageBuilder.buildError("Wrong argument type for command (See -help for usage)", null)).queue();
             }
 
             @Override
             public void commandRestricted(Message message, String name) {
-                event.getTextChannel().sendMessageEmbeds(MessageBuilder.buildError("Command not permitted", null)).queue();
+                event.getChannel().sendMessageEmbeds(MessageBuilder.buildError("Command not permitted", null)).queue();
             }
 
             @Override
             public void commandException(Message message, String name, Throwable throwable) {
-                event.getTextChannel().sendMessageEmbeds(MessageBuilder.buildError("Command threw an exception", new Exception(throwable))).queue();
+                event.getChannel().sendMessageEmbeds(MessageBuilder.buildError("Command threw an exception", new Exception(throwable))).queue();
 
                 log.error("Command with content {} threw an exception.", message.getContentDisplay(), throwable);
             }

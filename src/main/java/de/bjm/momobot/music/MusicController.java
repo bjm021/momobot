@@ -27,6 +27,8 @@ import de.bjm.momobot.utils.MessageBuilder;
 import de.bjm.momobot.utils.Hentai;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.managers.AudioManager;
 import net.iharder.Base64;
 
