@@ -82,6 +82,8 @@ public class Setup {
 
         root.put("restricted-commands", restrictedCommands);
 
+        root.put("maxQueueSize", 20);
+
         System.out.println("\n\nFinished Setup, writing config...");
 
         try {

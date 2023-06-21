@@ -24,7 +24,7 @@ dependencies {
   implementation 'com.sedmelluq:lavaplayer:1.3.77'
 
   compile 'com.sedmelluq:jda-nas:1.1.0'
-  compile 'net.dv8tion:JDA:5.0.0-beta.2'
+  compile 'net.dv8tion:JDA:5.0.0-beta.11'
   runtime 'ch.qos.logback:logback-classic:1.2.8'
 
   // https://mvnrepository.com/artifact/net.iharder/base64
@@ -40,7 +40,7 @@ dependencies {
   compile group: 'commons-io', name: 'commons-io', version: '2.11.0'
 
   // https://mvnrepository.com/artifact/org.json/json
-  compile group: 'org.json', name: 'json', version: '20211205'
+  compile group: 'org.json', name: 'json', version: '20230227'
 
 
 
